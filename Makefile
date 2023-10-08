@@ -39,6 +39,7 @@ SRCS_FILES	= 	minishell.c \
 				parsing/lexer/ft_retreat_lexer_remove_quotes.c \
 				parsing/lexer/ft_retreat_lexer_detach.c \
 				parsing/lexer/ft_retreat_lexer.c \
+				parsing/lexer/ft_expand_detach.c \
 				parsing/lists/ft_lst_env_add_back.c \
 				parsing/lists/ft_lst_env_add_front.c \
 				parsing/lists/ft_lst_env_last.c \

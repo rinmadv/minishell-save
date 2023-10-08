@@ -175,7 +175,10 @@ void			ft_display_lexer(t_info info);
 int		ft_retreat_lexer(t_info *info);
 int		ft_remove_quotes(t_list *list, char quote);
 int		ft_split_quotes(t_list *list);
-int	ft_insert_next_node(int i, t_list *list);
+int		ft_insert_next_node(int i, t_list *list);
+
+/* NEW EXPAND */
+int	 ft_detatch_expand(t_list *list, int i);
 
 
 /* PARSEUR */
