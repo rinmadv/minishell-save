@@ -171,8 +171,11 @@ bool		ft_check_empty_line(const char	*str, int i);
 int				ft_lexer(const char *input, t_info *info);
 char			*get_token_val(const char *str, int *i);
 t_token_type	get_token_type(const char *token);
-int				ft_count_token(char const *str);
 void			ft_display_lexer(t_info info);
+int		ft_retreat_lexer(t_info *info);
+int		ft_remove_quotes(t_list *list, char quote);
+int		ft_split_quotes(t_list *list);
+
 
 /* PARSEUR */
 int		ft_parser(t_info *info, t_data *data);

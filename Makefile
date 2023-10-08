@@ -33,10 +33,12 @@ SRCS_FILES	= 	minishell.c \
 				parsing/envp/ft_print_env.c \
 				parsing/envp/ft_set_flag.c \
 				parsing/lexer/ft_display_lexer.c \
-				parsing/lexer/ft_lexer_count_tokens.c \
 				parsing/lexer/ft_lexer_get_token_type.c \
 				parsing/lexer/ft_lexer_get_token_val.c \
 				parsing/lexer/ft_lexer.c \
+				parsing/lexer/ft_retreat_lexer_remove_quotes.c \
+				parsing/lexer/ft_retreat_lexer_detach.c \
+				parsing/lexer/ft_retreat_lexer.c \
 				parsing/lists/ft_lst_env_add_back.c \
 				parsing/lists/ft_lst_env_add_front.c \
 				parsing/lists/ft_lst_env_last.c \
