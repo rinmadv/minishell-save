@@ -168,13 +168,14 @@ bool		ft_check_syntax_with_tokens(t_list *token);
 bool		ft_check_empty_line(const char	*str, int i);
 
 /* LEXER */
-int				ft_lexer(const char *input, t_info *info);
+int	ft_lexer(const char *input, t_info *info, t_envlist *env);
 char			*get_token_val(const char *str, int *i);
 t_token_type	get_token_type(const char *token);
 void			ft_display_lexer(t_info info);
 int		ft_retreat_lexer(t_info *info);
 int		ft_remove_quotes(t_list *list, char quote);
 int		ft_split_quotes(t_list *list);
+int	ft_insert_next_node(int i, t_list *list);
 
 
 /* PARSEUR */

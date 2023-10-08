@@ -29,7 +29,7 @@ int	parsing(t_data *data, const char *input)
 		info = create_info(info);
 		if (!info)
 			return (ft_error(MEMORY_ERROR_NB)); //besoin d'effacer qq chose aussi
-		function_return = ft_lexer(input, info);
+		function_return = ft_lexer(input, info, data->envp);
 		if (function_return == LINE_IS_EMPTY)
 			return (FUNCTION_SUCCESS); // faut free des trucs tho
 		if (function_return != FUNCTION_SUCCESS)

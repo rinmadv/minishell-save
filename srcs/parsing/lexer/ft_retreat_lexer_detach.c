@@ -4,9 +4,9 @@
 char	*ft_change_current_str(t_token *current_token, int i, char quote)
 {
 	char	*curr_word;
-	char	*truncate_quote;
-	(void) truncate_quote;
-	(void) quote;
+	char	*truncate_quote; //a sup
+	(void) truncate_quote; //a sup
+	(void) quote; //a sup
 	current_token->join_with_next = true;
 	curr_word = ft_substr(current_token->string, 0, i);
 	if (!curr_word)
