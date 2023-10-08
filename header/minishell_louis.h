@@ -1,14 +1,5 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell_louis.h                                  :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: madavid <madavid@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/30 14:39:47 by lmarchai          #+#    #+#             */
-/*   Updated: 2023/09/29 16:44:28 by madavid          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#ifndef MINISHELL_LOUIS_H
+# define MINISHELL_LOUIS_H
 
 # include<stdio.h>
 # include<stdlib.h>
@@ -21,6 +12,8 @@
 # include <fcntl.h>
 # include <sys/wait.h>
 # include <stddef.h>
+
+extern int glb;
 
 typedef struct s_pipe
 {
@@ -38,18 +31,18 @@ char	**gen_third_cmd(char **argv, int argc);
 int		strlen_list(t_cmd **cmd);
 
 int		cross_array_list(t_data *data);
-t_pipe	*gen_child(t_cmd **cmd, t_pipe *pipes, char **envp, int i, int *status);
+t_pipe	*gen_child(t_data *data, t_pipe *pipes);
 t_pipe	*new_pipes(t_pipe *pipes, int i);
-void	wait_childs(t_cmd **cmd);
-int		child_process(t_cmd **tab_cmd, t_pipe *pipes, char **envp, int i);
+void	wait_childs(t_data *data);
+int		child_process(t_data *data, t_pipe *pipes);
 
-t_pipe	*handle_redirection(t_cmd *cmd, t_pipe *pipes);
-void	handle_builtins(t_cmd **cmd, char **envp, int i);
+t_pipe	*handle_redirection(t_data *data, t_pipe *pipes);
+void	handle_builtins(t_data *data);
 
 void	free_list_args(t_cmd **cmd, t_pipe *pipes, int len_list);
-void	close_list_args(t_cmd **cmd, int len_list);
+void	close_list_args(t_cmd **cmd, int len_list, int stdin_, int stdout_);
 
-void	close_pipes(t_pipe *pipes);
+void	close_pipes(t_data *data, t_pipe *pipes);
 
 int		strlen_list(t_cmd **cmd);
 
@@ -64,3 +57,7 @@ void	error_pipe(void);
 void	error_dup2(void);
 void	error_malloc(void);
 void	error_fork(void);
+
+void    handle_signals_heredoc();
+int		heredoc(char *limiter, t_data *data);
+#endif

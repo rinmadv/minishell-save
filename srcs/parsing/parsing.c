@@ -1,17 +1,18 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: madavid <madavid@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/27 16:29:29 by marine            #+#    #+#             */
-/*   Updated: 2023/09/29 15:57:48 by madavid          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "minishell.h"
 #include "minishell_louis.h"
+
+bool	ft_check_empty_line(const char *str, int i)
+{
+	while (str[i])
+	{
+		if (str[i] > 32)
+			return (true);
+		i++;
+	}
+	return (false);
+}
+
 
 int	parsing(t_data *data, const char *input)
 {
@@ -20,7 +21,9 @@ int	parsing(t_data *data, const char *input)
 	
 	info = NULL;
 	if (!check_syntax(input)) // faudra juste appeler check quotes en fait
-			return (SYNTAX_QUOTE_ERROR);
+		return (SYNTAX_QUOTE_ERROR);
+	else if (!ft_check_empty_line(input, 0))
+		return (FUNCTION_SUCCESS);
 	else
 	{
 		info = create_info(info);
@@ -29,17 +32,18 @@ int	parsing(t_data *data, const char *input)
 		function_return = ft_lexer(input, info);
 		if (function_return != FUNCTION_SUCCESS)
 			return (ft_error(function_return));
-		if (!ft_check_syntax_with_tokens(*info))
+		if (!ft_check_syntax_with_tokens(info->tokens))
 			ft_error(SYNTAX_TOKEN_ERROR);
 		else
 		{
 			//ft_display_lexer(*info);
-			function_return = ft_parser(info, data); // attention, on va avoir une verif a faire
+			// function_return = ft_parser(info, data); // attention, on va avoir une verif a faire
 			//if (function_return != FUNCTION_SUCCESS)
 			//	return (ft_error(function_return, data, info));
 		}
 		ft_clean_info_bis(&info);
 	}
+	(void)data;
 	return (FUNCTION_SUCCESS);
 }
 

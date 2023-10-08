@@ -1,24 +1,15 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_display_lexer.c                                 :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: madavid <madavid@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/27 16:29:29 by marine            #+#    #+#             */
-/*   Updated: 2023/09/29 15:57:48 by madavid          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "minishell.h"
 #include "minishell_louis.h"
 
 void	ft_display_lexer(t_info info)
 {
-	int i = 0;
-	while(i < info.nb_tokens)
+	t_token	*curr_token;
+
+	while(info.tokens)
 	{
-		dprintf(STDERR_FILENO, "[%d] [%d]: %s\n", i, info.tokens[i]->type, info.tokens[i]->string);
-		i++;
+		curr_token = (t_token*)info.tokens->content;
+		dprintf(STDERR_FILENO, "str : %s, type : %d, expand : %d, join : %d, quote : %d\n", curr_token->string, curr_token->type, curr_token->expand, curr_token->join_with_next, curr_token->quote);
+		info.tokens = info.tokens->next;
 	}
 }

@@ -1,24 +1,5 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: madavid <madavid@student.42.fr>            +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/05/01 17:16:40 by marine            #+#    #+#              #
-#    Updated: 2023/09/29 17:57:53 by madavid          ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 SRCS_FILES	= 	minishell.c \
 				prompt.c \
-				builtins/cd.c \
-				builtins/env.c \
-				builtins/export.c \
-				builtins/unset.c \
-				builtins/exit.c\
-				builtins/echo.c\
-				builtins/pwd.c\
 				errors/ft_errors.c \
 				manage_data_structs/clean/ft_clean_string.c \
 				manage_data_structs/clean/ft_clean_t_data.c \
@@ -31,17 +12,6 @@ SRCS_FILES	= 	minishell.c \
 				manage_data_structs/clean/ft_clean_2d_array_struct.c \
 				manage_data_structs/set/set_t_data.c \
 				manage_data_structs/set/set_t_info.c \
-				parsing/parser/ft_parser.c \
-				parsing/parser/ft_count_cmd.c \
-				parsing/parser/ft_init_tab_cmd.c \
-				parsing/parser/ft_init_cmd.c \
-				parsing/parser/ft_fill_cmd.c \
-				parsing/parser/ft_fill_cmd_test_in.c \
-				parsing/parser/ft_fill_cmd_test_out.c \
-				parsing/parser/ft_fill_cmd_count_args.c \
-				parsing/parser/ft_fill_cmd_init_tab_args.c \
-				parsing/parser/ft_fill_cmd_fill_tab_args.c \
-				parsing/parser/ft_display_tab_cmd.c \
 				parsing/expand/ft_manage_expand.c \
 				parsing/bools/ft_is_cmd_separator.c \
 				parsing/bools/ft_is_operator.c \
@@ -72,14 +42,7 @@ SRCS_FILES	= 	minishell.c \
 				parsing/lists/ft_lst_env_last.c \
 				parsing/lists/ft_lst_env_new.c \
 				parsing/lists/ft_lst_env_pop.c \
-				parsing/parsing.c \
-				exec/set_up_cmd.c\
-				exec/exec.c \
-				exec/close.c\
-				exec/error.c\
-				exec/free.c\
-				exec/redir.c\
-				exec/usefull.c
+				parsing/parsing.c 
 				
 PREFIX	= srcs
 
@@ -140,6 +103,7 @@ clean:
 	${MAKE} -sC ${LIBFT_DIR} clean
 	${RM} ${OBJS}
 	${RM} ${DEPS}
+	${RM} *.seed ${RM} */*.seed
 	echo "${GREEN}Done 💅${NC}"
 
 
@@ -152,5 +116,35 @@ fclean: clean
 re : fclean
 	${MAKE}
 
-.PHONY: re fclean all
+seed :
+	${RM} *.seed ${RM} */*.seed
+
+.PHONY: re fclean all seed
 .SILENT:
+#				parsing/parser/ft_parser.c \
+				parsing/parser/ft_count_cmd.c \
+				parsing/parser/ft_init_tab_cmd.c \
+				parsing/parser/ft_init_cmd.c \
+				parsing/parser/ft_fill_cmd.c \
+				parsing/parser/ft_fill_cmd_test_in.c \
+				parsing/parser/ft_fill_cmd_test_out.c \
+				parsing/parser/ft_fill_cmd_count_args.c \
+				parsing/parser/ft_fill_cmd_init_tab_args.c \
+				parsing/parser/ft_fill_cmd_fill_tab_args.c \
+				parsing/parser/ft_display_tab_cmd.c \
+				exec/set_up_cmd.c\
+				exec/exec.c\
+				exec/close.c\
+				exec/error.c\
+				exec/free.c\
+				exec/redir.c\
+				exec/usefull.c\
+				exec/heredoc.c\
+				exec/signals.c
+				builtins/cd.c \
+				builtins/env.c \
+				builtins/export.c \
+				builtins/unset.c \
+				builtins/exit.c\
+				builtins/echo.c\
+				builtins/pwd.c\

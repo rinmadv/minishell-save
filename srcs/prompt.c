@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   prompt.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: madavid <madavid@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/27 16:29:29 by marine            #+#    #+#             */
-/*   Updated: 2023/09/29 17:52:55 by madavid          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "minishell.h"
 #include "minishell_louis.h"
@@ -32,9 +21,9 @@ int	prompt(t_data *data)
 
 	while (1)
 	{
-		input = readline(PROMPT_COLOUR"aristoshell$ "PROMPT_RESET);
+		input = readline(YELLOW"aristoshell$ "NC);
 		//expand
-		ft_manage_expand(input, data->envp);
+		//ft_manage_expand(input, data->envp);
 		if (input && input[0] != 0)
 		{
 			// if (check_exit(input)) // utilise seulement ici pour quitter proprement mais on nen naura plus besoin apres
@@ -48,11 +37,11 @@ int	prompt(t_data *data)
 			free((void *)input);
 			if (function_return != FUNCTION_SUCCESS)
 				ft_error(function_return);
-			//if(cross_array_list(data) == EXIT)
-			//	return (EXIT);
+			// if(cross_array_list(data) == EXIT)
+			// 	return (EXIT);
 			//ft_reinit_data(data);
 		}
 	}
-	rl_clear_history();
+	clear_history();
 	return(FUNCTION_SUCCESS);
 }

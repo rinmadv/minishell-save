@@ -1,45 +1,31 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_check_syntax_with_tokens.c                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: madavid <madavid@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/26 14:50:24 by madavid           #+#    #+#             */
-/*   Updated: 2023/09/26 15:31:11 by madavid          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include <minishell.h>
 
-bool	ft_check_syntax_with_tokens(t_info info)
+bool	ft_check_syntax_with_tokens(t_list *token)
 {
-	int				i;
-	t_token_type	curr;
-	t_token_type	prev;
-	
+	t_token			*current_node;
+	t_token			*next_node;
+	int	i;
+
 	i = 0;
-	while (i < info.nb_tokens)
+	next_node = NULL;
+	while (token)
 	{
-		curr = info.tokens[i]->type;
-		if (i == 0)
-		{	
-			if (curr == type_pipe)
-				return (false);
-		}
-		else
+		current_node = (t_token*)token->content;
+		if (token->next)
+			next_node = (t_token*)token->next->content;
+		if (current_node->type == type_pipe)
 		{
-			if (prev == type_pipe && curr == type_pipe)
+			if (i == 0 || !token->next || next_node->type == type_pipe)
 				return (false);
-			else if ((prev == type_in || prev == type_out || prev == type_append || prev == type_heredoc) && curr == type_pipe)
-				return (false);
-			else
-				;
 		}
-		prev = curr;
+		else if (current_node->type >= type_in)
+		{
+			if (!token->next || next_node->type != type_word)
+				return (false);
+		}
 		i++;
+		token = token->next;
 	}
-	if (prev != type_word)
-		return (false);
 	return (true);
 }

@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: madavid <madavid@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/01 17:30:55 by marine            #+#    #+#             */
-/*   Updated: 2023/09/29 17:48:20 by madavid          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -74,13 +62,16 @@ typedef struct s_token
 {
 	char			*string;
 	t_token_type	type;
+	bool			join_with_next;
+	bool			expand;
+	t_open_quote	quote;
 }			t_token;
 
 typedef struct s_info
 {
-	int		nb_tokens;
-	int		current_token;
-	t_token	**tokens;
+	int		nb_tokens; // a delete
+	int		current_token; // a delete
+	t_list	*tokens;
 }			t_info;
 
 /* Fin lexer */
@@ -114,7 +105,7 @@ typedef struct s_cmd
 {
 	pid_t				pid;
 	char				**cmd_args;
-	t_builtin			cmd_type;
+	t_builtin			cmd_type;MINISHELL_H
 	char				**path_cmd;
 	t_in_out			input;
 	t_in_out			output;
@@ -170,15 +161,15 @@ char		check_open_quote(const char *input);
 bool		check_redir(const char *str);
 bool		check_pipe(const char *str);
 void		ft_pass_when_quote(const char *str, int *i);
-bool		ft_check_syntax_with_tokens(t_info info);
-
+bool		ft_check_syntax_with_tokens(t_list *token);
+bool		ft_check_empty_line(const char	*str, int i);
 
 /* LEXER */
 int				ft_lexer(const char *input, t_info *info);
 char			*get_token_val(const char *str, int *i);
 t_token_type	get_token_type(const char *token);
-void			ft_display_lexer(t_info info);
 int				ft_count_token(char const *str);
+void			ft_display_lexer(t_info info);
 
 /* PARSEUR */
 int		ft_parser(t_info *info, t_data *data);
@@ -208,7 +199,7 @@ bool		ft_is_cmd_separator(char c);
 bool		ft_is_dollar(char c);
 
 /* Expand */
-void		ft_manage_expand(const char *input, t_envlist *env);
+char	*ft_manage_expand(const char *input, t_envlist *env);
 
 /* Envp  */
 char		*ft_get_val(char *line);

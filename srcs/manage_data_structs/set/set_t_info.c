@@ -1,22 +1,12 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   set_t_info.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: madavid <madavid@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/21 01:58:51 by marine            #+#    #+#             */
-/*   Updated: 2023/09/29 15:57:48 by madavid          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "minishell.h"
 #include "minishell_louis.h"
 
 void	ft_init_info(t_info *info)
 {
-	info->nb_tokens = 0;
-	info->current_token = 0;
+	info->nb_tokens = 0; // a delete
+	info->current_token = 0; // a delete
+	info->tokens = NULL;
 }
 void	ft_reinit_info(t_info *info)
 {
@@ -29,38 +19,42 @@ void	ft_reinit_info(t_info *info)
 }
 /* Nouvelles fonctions */
 
-void	ft_clean_info_tokens(t_info *info)
-{
-	int	i;
-	t_token **tab;
+// void	ft_clean_info_tokens(t_info *info)
+// {
+// 	int	i;
+// 	t_token **tab;
 
-	i = 0;
-	tab = info->tokens;
-	while (i < info->nb_tokens)
-	{
-		if (tab[i])
-		{
-			if (tab[i]->string)
-			{
-				free(tab[i]->string);
-				tab[i]->string = NULL;
-			}
-			tab[i]->type = type_default;
-			free((void*)tab[i]);
-			tab[i] = NULL;
-			i++;
-		}
-	}
-	free(tab);
-	tab = NULL;
+// 	i = 0;
+// 	tab = info->tokens;
+// 	while (i < info->nb_tokens)
+// 	{
+// 		if (tab[i])
+// 		{
+// 			if (tab[i]->string)
+// 			{
+// 				free(tab[i]->string);
+// 				tab[i]->string = NULL;
+// 			}
+// 			tab[i]->type = type_default;
+// 			free((void*)tab[i]);
+// 			tab[i] = NULL;
+// 			i++;
+// 		}
+// 	}
+// 	free(tab);
+// 	tab = NULL;
+// }
+
+void	ft_clean_token(t_token *token)
+{
+	free(token->string);
 }
+
 void	ft_clean_info_bis(t_info **info)
 {
 	if ((*info))
 	{
-		ft_clean_info_tokens(*info);
-		(*info)->nb_tokens = 0;
-		(*info)->current_token = 0;
+		ft_lstclear(&(*info)->tokens, (void *)ft_clean_token);
 		free((*info));
 		*info = NULL;
 	}
