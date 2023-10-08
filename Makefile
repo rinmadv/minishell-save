@@ -12,7 +12,6 @@ SRCS_FILES	= 	minishell.c \
 				manage_data_structs/clean/ft_clean_2d_array_struct.c \
 				manage_data_structs/set/set_t_data.c \
 				manage_data_structs/set/set_t_info.c \
-				parsing/expand/ft_manage_expand.c \
 				parsing/bools/ft_is_cmd_separator.c \
 				parsing/bools/ft_is_operator.c \
 				parsing/bools/ft_is_pipe.c \
@@ -39,7 +38,9 @@ SRCS_FILES	= 	minishell.c \
 				parsing/lexer/ft_retreat_lexer_remove_quotes.c \
 				parsing/lexer/ft_retreat_lexer_detach.c \
 				parsing/lexer/ft_retreat_lexer.c \
-				parsing/lexer/ft_expand_detach.c \
+				parsing/expand/ft_expand.c \
+				parsing/expand/ft_expand_detach.c \
+				parsing/expand/ft_expand_val.c \
 				parsing/lists/ft_lst_env_add_back.c \
 				parsing/lists/ft_lst_env_add_front.c \
 				parsing/lists/ft_lst_env_last.c \

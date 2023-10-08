@@ -168,7 +168,7 @@ bool		ft_check_syntax_with_tokens(t_list *token);
 bool		ft_check_empty_line(const char	*str, int i);
 
 /* LEXER */
-int	ft_lexer(const char *input, t_info *info, t_envlist *env);
+int	ft_lexer(const char *input, t_info *info);
 char			*get_token_val(const char *str, int *i);
 t_token_type	get_token_type(const char *token);
 void			ft_display_lexer(t_info info);
@@ -209,7 +209,9 @@ bool		ft_is_cmd_separator(char c);
 bool		ft_is_dollar(char c);
 
 /* Expand */
+int		ft_expand(t_info *info, t_envlist *envp);
 char	*ft_manage_expand(const char *input, t_envlist *env);
+int	ft_expand_val(t_list *list, t_envlist *env);
 
 /* Envp  */
 char		*ft_get_val(char *line);
