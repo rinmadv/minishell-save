@@ -67,6 +67,7 @@ typedef struct s_token
 	bool			join_with_next;
 	bool			expand;
 	t_open_quote	quote;
+	bool			empty_node;
 }			t_token;
 
 typedef struct s_info

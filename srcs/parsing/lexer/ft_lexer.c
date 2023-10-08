@@ -21,7 +21,7 @@ int	ft_remove_quotes(t_list *list, char quote)
 
 	current_token = (t_token *)list->content;
 	if (!ft_check_empty_line_quote(current_token->string, 0))
-		return (printf("cc\n"), LINE_IS_EMPTY);
+		return (LINE_IS_EMPTY);
 	if (quote == DOUBLE_QUOTE)
 	{
 		current_token->quote = double_q;
@@ -132,26 +132,12 @@ int	ft_split_quotes(t_list *list)
 	return (FUNCTION_SUCCESS);
 }
 
-void	ft_change_join_bool(t_list *prev, t_list *curr)
-{
-	t_token	*curr_token;
-	t_token	*prev_token;
-
-	curr_token = (t_token *)curr->content;
-	prev_token = (t_token *)prev->content;
-	if (prev_token->join_with_next && !curr_token->join_with_next)
-		prev_token->join_with_next = false;
-}
-
 int	ft_retreat_lexer(t_info *info)
 {
 	t_list	*list;
 	t_token	*current_token;
-	t_list	*prev;
-	t_list	*tmp;
 
 	list = info->tokens;
-	prev = NULL;
 	while (list)
 	{
 		current_token = (t_token *)list->content;
@@ -160,35 +146,26 @@ int	ft_retreat_lexer(t_info *info)
 			if (ft_split_quotes(list) != FUNCTION_SUCCESS)
 				return (MEMORY_ERROR_NB); // attention, mal clean
 			if (current_token->quote && ft_remove_quotes(list, current_token->string[0]) == LINE_IS_EMPTY)
-			{
-				if (prev)
-				{
-				//checker pour les joint
-				ft_change_join_bool(prev, list);
-				//changer les next
-				prev->next = list->next;
-				// //delete ce node
-				free(current_token->string);
-				free(current_token);
-				free(list); // attention si jamais on était au premier ""
-				list = prev;
-				}
-				else
-				{
-					tmp = list->next;
-					free(list);
-					list = tmp;
-				}
-			}
+				current_token->empty_node = true;
 		}
-		if (!list)
-			return (LINE_IS_EMPTY);
-		prev = list;
 		list = list->next;
 	}
 	return (FUNCTION_SUCCESS);
 }
 
+int	ft_init_token(t_token *new_token, const char *input, int *i)
+{
+	new_token->string = NULL;
+	new_token->string = get_token_val(input, i);
+	if (!new_token->string)
+		return (MEMORY_ERROR_NB); //free des trucs aussi
+	new_token->type = get_token_type(new_token->string);
+	new_token->expand = false;
+	new_token->join_with_next = false;
+	new_token->quote = no_q;
+	new_token->empty_node = false;
+	return (FUNCTION_SUCCESS);
+}
 
 int	ft_lexer(const char *input, t_info *info)
 {
@@ -197,66 +174,22 @@ int	ft_lexer(const char *input, t_info *info)
 	t_token	*new_token;
 
 	i = 0;
-	while (input[i]) //remplir le tableau de mots
+	while (input[i])
 	{
 		if (!ft_check_empty_line(input, i))
 			break;
 		new_token = malloc(sizeof(t_token));
 		if (!new_token)
 			return (MEMORY_ERROR_NB);
-		new_token->string = NULL;
-		new_token->string = get_token_val(input, &i); //verif a faire
-		new_token->type = get_token_type(new_token->string);
-		new_token->expand = false;
-		new_token->join_with_next = false;
-		new_token->quote = no_q;
+		if (ft_init_token(new_token, input, &i) != FUNCTION_SUCCESS)
+			return (MEMORY_ERROR_NB); //penser a bien free
 		new_node = ft_lstnew((void *)new_token);
 		if(!new_node)
 			return (MEMORY_ERROR_NB);
 		ft_lstadd_back(&info->tokens, new_node);
 	}
-	ft_display_lexer(*info);
-	printf(BLUE"\nSeparage des quotes\n"NC);
-	int rez;
-	rez = ft_retreat_lexer(info); // add secu
-	if (rez == MEMORY_ERROR_NB)
+	if (ft_retreat_lexer(info) != FUNCTION_SUCCESS) 
 		return (MEMORY_ERROR_NB);
-	if (rez == LINE_IS_EMPTY)
-		return (LINE_IS_EMPTY);
-	ft_display_lexer(*info);
 	//manager lexpand
 	return (FUNCTION_SUCCESS);
 }
-
-/* main de vérif de fonctions 
-
-int	main(void)
-{
-	char *str = ">grrrr omg<jpppp ohlala |< > 'putain|de|merde hihi cest encore la meme quote'\"encore la aussi\"|mais plus maintenant hihi |'grr'> <";
-	int	nb_tokens;
-
-	nb_tokens = ft_count_token(str);
-	printf("nb tokens : %d\n", nb_tokens);
-	int i = 0;
-	int size = -1;
-	while (size)
-	{
-		size = ft_get_token_val_len(str, &i);
-		printf("size = %d\n", size);
-	}	
-}
-*/
-
-// int	main(void)
-// {
-// 	char *str = ">grrrr omg<jpppp ohlala |< > 'putain|de|merde hihi cest encore la meme quote'\"encore la aussi\"|mais plus maintenant hihi |'grr'> <";
-// 	t_info	info;
-// 	lexer(str, &info);
-// 	int i = 0;
-// 	printf("nb mots : %d\n", info.nb_tokens);
-// 	while (i < info.nb_tokens)
-// 	{
-// 		printf("mot : %s, type : %d\n", info.tokens[i]->string, info.tokens[i]->type);
-// 		i++;
-// 	}
-// }
