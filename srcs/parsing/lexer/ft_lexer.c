@@ -23,9 +23,30 @@ int	ft_simple_expand_from_start(t_token *current_token, t_envlist *env)
 	return (FUNCTION_SUCCESS);
 }
 
-int	 ft_detatch_expand(t_list *list, int i, t_envlist *env)
+// int	 ft_detatch_expand(t_list *list, int i, t_envlist *env)
+// {
+// 	t_token	*current_token;
+
+// 	current_token = (t_token *)list->content;
+// 	if (i == 0)
+// 	{
+// 		i++;
+// 		while (current_token->string[i] && (!ft_is_space(current_token->string[i]) && !ft_is_dollar(current_token->string[i])))
+// 			i++;
+// 		if (current_token->string[i])//detacher ce qui vient apres
+// 		{
+// 			if (ft_insert_next_node(i, list) != FUNCTION_SUCCESS)
+// 				return (MEMORY_ERROR_NB);
+// 		}
+// 		ft_simple_expand_from_start(current_token, env);
+// 	}
+// 	return (FUNCTION_SUCCESS);
+// }
+
+int	 ft_detatch_expand(t_list *list, int i)
 {
 	t_token	*current_token;
+	char	*truncate;
 
 	current_token = (t_token *)list->content;
 	if (i == 0)
@@ -37,13 +58,35 @@ int	 ft_detatch_expand(t_list *list, int i, t_envlist *env)
 		{
 			if (ft_insert_next_node(i, list) != FUNCTION_SUCCESS)
 				return (MEMORY_ERROR_NB);
+			current_token->join_with_next = true;
 		}
-		ft_simple_expand_from_start(current_token, env);
+		current_token->expand = true;
+		truncate = ft_strtrim(current_token->string, "$");
+		if (!truncate)
+			return (MEMORY_ERROR_NB);
+		free(current_token->string);
+		current_token->string = truncate;
+	}
+	else
+	{
+		if (ft_insert_next_node(i, list) != FUNCTION_SUCCESS)
+			return (MEMORY_ERROR_NB);
+		if (current_token->join_with_next)
+		{
+			t_token *next = (t_token *)list->next->content;
+			next->join_with_next = true;
+		}
+		current_token->join_with_next = true; //important de le garder apres
+		truncate = ft_substr(current_token->string, 0, i);
+		if (!truncate)
+			return (MEMORY_ERROR_NB);
+		free(current_token->string);
+		current_token->string = truncate;
 	}
 	return (FUNCTION_SUCCESS);
 }
 
-int	ft_expand(t_info *info, t_envlist *env)
+int	ft_expand(t_info *info, t_envlist *envp)
 {
 	t_list	*list;
 	t_token	*current_token;
@@ -56,11 +99,13 @@ int	ft_expand(t_info *info, t_envlist *env)
 		current_token = (t_token *)list->content;
 		if (current_token->type == type_word && (current_token->quote != simple_q))
 		{
-			//printf("ouiii\n");
 			dollar_loc = ft_strchr_int(current_token->string, '$');
 			if (dollar_loc >= 0)
 			{
-				ft_detatch_expand(list, dollar_loc, env);
+				if (ft_detatch_expand(list, dollar_loc) != FUNCTION_SUCCESS);
+					return (MEMORY_ERROR_NB);
+				(void) envp;
+				//ft_expand_val
 			}
 		}
 		list = list->next;
