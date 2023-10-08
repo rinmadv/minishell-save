@@ -10,7 +10,14 @@ void	ft_display_lexer(t_info info)
 	{
 		curr_token = (t_token*)info.tokens->content;
 		if (!curr_token->empty_node)
-			dprintf(STDERR_FILENO, "str : %s, type : %d, expand : %d, join : %d, in quote : %d, empty : %d\n", curr_token->string, curr_token->type, curr_token->expand, curr_token->join_with_next, curr_token->quote, curr_token->empty_node);
+		{
+			dprintf(STDERR_FILENO, "str : %s, ", curr_token->string);
+			dprintf(STDERR_FILENO, "type : %d, ", curr_token->type);
+			dprintf(STDERR_FILENO, "expand : %d, ", curr_token->expand);
+			dprintf(STDERR_FILENO, "join : %d, ", curr_token->join_with_next);
+			dprintf(STDERR_FILENO, "in quote : %d, ", curr_token->quote);
+			dprintf(STDERR_FILENO, "empty : %d\n", curr_token->empty_node);
+		}
 		info.tokens = info.tokens->next;
 	}
 }
