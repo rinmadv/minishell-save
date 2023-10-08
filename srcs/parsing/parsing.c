@@ -30,6 +30,8 @@ int	parsing(t_data *data, const char *input)
 		if (!info)
 			return (ft_error(MEMORY_ERROR_NB)); //besoin d'effacer qq chose aussi
 		function_return = ft_lexer(input, info);
+		if (function_return == LINE_IS_EMPTY)
+			return (FUNCTION_SUCCESS); // faut free des trucs tho
 		if (function_return != FUNCTION_SUCCESS)
 			return (ft_error(function_return));
 		if (!ft_check_syntax_with_tokens(info->tokens))

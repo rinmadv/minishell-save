@@ -2,15 +2,26 @@
 #include "minishell.h"
 #include "minishell_louis.h"
 
+bool	ft_check_empty_line_quote(const char *str, int i)
+{
+	i++;
+	while (str[i])
+	{
+		if (str[i] > 32 && str[i+1] != 0)
+			return (true);
+		i++;
+	}
+	return (false);
+}
+
 int	ft_remove_quotes(t_list *list, char quote)
 {
 	t_token	*current_token;
 	char	*curr_word;
 
 	current_token = (t_token *)list->content;
-	printf("%s\n", current_token->string);
-	if (!ft_check_empty_line(&current_token->string[1], (ft_strlen(current_token->string) -1)))
-		return (FUNCTION_SUCCESS);
+	if (!ft_check_empty_line_quote(current_token->string, 0))
+		return (printf("cc\n"), LINE_IS_EMPTY);
 	if (quote == DOUBLE_QUOTE)
 	{
 		current_token->quote = double_q;
@@ -32,26 +43,15 @@ char	*ft_change_current_str(t_token *current_token, int i, char quote)
 {
 	char	*curr_word;
 	char	*truncate_quote;
-
+	(void) truncate_quote;
+	(void) quote;
 	current_token->join_with_next = true;
 	curr_word = ft_substr(current_token->string, 0, i);
 	if (!curr_word)
 		return (MEMORY_ERROR_PT);//careful
-	if (ft_is_quote(curr_word[0]))
-	{
-		if (!ft_check_empty_line(&current_token->string[1], (ft_strlen(current_token->string) -1)))
-			return (curr_word);	
-		if (quote == DOUBLE_QUOTE)
-			truncate_quote =  ft_strtrim(curr_word, "\"");
-		else
-			truncate_quote =  ft_strtrim(curr_word, "'");
-		free (curr_word);
-		if (!truncate_quote)
-			return (MEMORY_ERROR_PT); //careful
-		return (truncate_quote);
-	}
-	else
-		return (curr_word);
+	if (current_token->string[0] == quote)
+		current_token->quote = true_q;
+	return (curr_word);
 }
 void	ft_get_i(char quote, char *string, int *i)
 { // on aura peut etre un segfault ici car on check pas si /0
@@ -98,9 +98,10 @@ int	ft_detach_quotes(int i, t_list *list, char quote)
 	if (i == 0) //on est dans une quote + c'est la premiere
 	{
 		ft_get_i(quote, current_token->string, &i);
-		if(!current_token->string[i]) // si jamais ya rien a split, on enleve juste les quote
-			return (ft_remove_quotes(list, quote));
-			//return(FUNCTION_SUCCESS);
+		if (current_token->string[0] == quote)
+			current_token->quote = true_q;
+		if(!current_token->string[i]) // si jamais ya rien a split, on return
+			return (FUNCTION_SUCCESS);
 	}
 	if (ft_insert_next_node(i, list) != FUNCTION_SUCCESS)
 		return (MEMORY_ERROR_NB);
@@ -112,7 +113,7 @@ int	ft_detach_quotes(int i, t_list *list, char quote)
 	return (FUNCTION_SUCCESS);
 }
 
-int	ft_retreat_lexer(t_list *list)
+int	ft_split_quotes(t_list *list)
 {
 	t_token	*current_token;
 	size_t	i;
@@ -131,24 +132,63 @@ int	ft_retreat_lexer(t_list *list)
 	return (FUNCTION_SUCCESS);
 }
 
-int	ft_del_quotes(t_info *info)
+void	ft_change_join_bool(t_list *prev, t_list *curr)
+{
+	t_token	*curr_token;
+	t_token	*prev_token;
+
+	curr_token = (t_token *)curr->content;
+	prev_token = (t_token *)prev->content;
+	if (prev_token->join_with_next && !curr_token->join_with_next)
+		prev_token->join_with_next = false;
+}
+
+int	ft_retreat_lexer(t_info *info)
 {
 	t_list	*list;
 	t_token	*current_token;
+	t_list	*prev;
+	t_list	*tmp;
 
 	list = info->tokens;
+	prev = NULL;
 	while (list)
 	{
 		current_token = (t_token *)list->content;
 		if (current_token->type == type_word)
 		{
-			if (ft_retreat_lexer(list) != FUNCTION_SUCCESS)
+			if (ft_split_quotes(list) != FUNCTION_SUCCESS)
 				return (MEMORY_ERROR_NB); // attention, mal clean
+			if (current_token->quote && ft_remove_quotes(list, current_token->string[0]) == LINE_IS_EMPTY)
+			{
+				if (prev)
+				{
+				//checker pour les joint
+				ft_change_join_bool(prev, list);
+				//changer les next
+				prev->next = list->next;
+				// //delete ce node
+				free(current_token->string);
+				free(current_token);
+				free(list); // attention si jamais on était au premier ""
+				list = prev;
+				}
+				else
+				{
+					tmp = list->next;
+					free(list);
+					list = tmp;
+				}
+			}
 		}
+		if (!list)
+			return (LINE_IS_EMPTY);
+		prev = list;
 		list = list->next;
 	}
 	return (FUNCTION_SUCCESS);
 }
+
 
 int	ft_lexer(const char *input, t_info *info)
 {
@@ -177,7 +217,12 @@ int	ft_lexer(const char *input, t_info *info)
 	}
 	ft_display_lexer(*info);
 	printf(BLUE"\nSeparage des quotes\n"NC);
-	ft_del_quotes(info);
+	int rez;
+	rez = ft_retreat_lexer(info); // add secu
+	if (rez == MEMORY_ERROR_NB)
+		return (MEMORY_ERROR_NB);
+	if (rez == LINE_IS_EMPTY)
+		return (LINE_IS_EMPTY);
 	ft_display_lexer(*info);
 	//manager lexpand
 	return (FUNCTION_SUCCESS);

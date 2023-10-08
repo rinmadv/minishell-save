@@ -19,6 +19,7 @@
 # define MEMORY_ERROR_PT	NULL
 # define SYNTAX_QUOTE_ERROR	3
 # define SYNTAX_TOKEN_ERROR	4
+# define LINE_IS_EMPTY		5
 # define DOUBLE_QUOTE 		34
 # define SIMPLE_QUOTE 		39
 # define MASK_SET			0x10
@@ -42,6 +43,7 @@ typedef int	t_flag;
 typedef enum e_open_quote
 {
 	no_q,
+	true_q,
 	simple_q,
 	double_q
 }			t_open_quote;
@@ -105,7 +107,7 @@ typedef struct s_cmd
 {
 	pid_t				pid;
 	char				**cmd_args;
-	t_builtin			cmd_type;MINISHELL_H
+	t_builtin			cmd_type;
 	char				**path_cmd;
 	t_in_out			input;
 	t_in_out			output;
