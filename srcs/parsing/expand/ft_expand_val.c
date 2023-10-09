@@ -51,7 +51,7 @@ int	ft_expand_val(t_list *list, t_envlist *env)
 	t_token	*current_token;
 
 	current_token = (t_token *)list->content;
-	while (env && ft_strncmp(current_token->string, (const char*)env->key, ft_strlen(env->key)))
+	while (env && ft_strncmp(current_token->string, (const char*)env->key, (ft_strlen(current_token->string) + 1)))
 		env = env->next;
 	free(current_token->string); //maybe invalide free
 	if (!env)
