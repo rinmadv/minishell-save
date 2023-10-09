@@ -41,6 +41,7 @@ SRCS_FILES	= 	minishell.c \
 				parsing/expand/ft_expand.c \
 				parsing/expand/ft_expand_detach.c \
 				parsing/expand/ft_expand_val.c \
+				parsing/join/ft_join_nodes.c \
 				parsing/lists/ft_lst_env_add_back.c \
 				parsing/lists/ft_lst_env_add_front.c \
 				parsing/lists/ft_lst_env_last.c \

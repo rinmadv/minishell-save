@@ -37,9 +37,17 @@ int	parsing(t_data *data, const char *input)
 			ft_error(SYNTAX_TOKEN_ERROR);
 		else
 		{
+			printf(BLUE"\nLEXER\n"NC);
+			ft_display_lexer(*info);
 			if (ft_retreat_lexer(info) != FUNCTION_SUCCESS) 
 				return (MEMORY_ERROR_NB);
+			printf(BLUE"\nRETREAT LEXER\n"NC);
+			ft_display_lexer(*info);
 			ft_expand(info, data->envp); //add secu
+			printf(BLUE"\nEXPAND\n"NC);
+			ft_display_lexer(*info);
+			printf(BLUE"\nJOIN\n"NC);
+			ft_join_nodes(info->tokens);
 			ft_display_lexer(*info);
 			// function_return = ft_parser(info, data); // attention, on va avoir une verif a faire
 			//if (function_return != FUNCTION_SUCCESS)

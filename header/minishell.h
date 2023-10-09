@@ -210,6 +210,9 @@ int	 ft_detatch_expand(t_list *list, int i);
 int		ft_expand(t_info *info, t_envlist *envp);
 int		ft_expand_val(t_list *list, t_envlist *env);
 
+/* Join */
+int	ft_join_nodes(t_list *list);
+
 /* Envp  */
 char		*ft_get_val(char *line);
 t_envlist	*ft_new_envvar(char *line);

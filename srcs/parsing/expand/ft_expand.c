@@ -25,6 +25,7 @@ int	ft_expand(t_info *info, t_envlist *envp)
 			}
 		}
 		list = list->next;
+		(void) envp;
 	}
 	return (FUNCTION_SUCCESS);
 }
