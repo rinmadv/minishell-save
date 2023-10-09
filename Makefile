@@ -48,6 +48,15 @@ SRCS_FILES	= 	minishell.c \
 				parsing/lists/ft_lst_env_new.c \
 				parsing/lists/ft_lst_env_pop.c \
 				parsing/parser/ft_parser.c \
+				parsing/parser/ft_init_tab_cmd.c \
+				parsing/parser/ft_display_tab_cmd.c \
+				parsing/parser/ft_fill_cmd_count_args.c \
+				parsing/parser/ft_fill_cmd_fill_tab_args.c \
+				parsing/parser/ft_fill_cmd_init_tab_args.c \
+				parsing/parser/ft_fill_cmd_test_in.c \
+				parsing/parser/ft_fill_cmd_test_out.c \
+				parsing/parser/ft_fill_cmd.c \
+				parsing/parser/ft_init_cmd.c \
 				parsing/parsing.c 
 				
 PREFIX	= srcs

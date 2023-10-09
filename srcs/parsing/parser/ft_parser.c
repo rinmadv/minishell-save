@@ -49,28 +49,28 @@ bool	ft_check_empty_tokens_list(t_list *list)
 }
 
 
-// int	ft_fill_tab_cmd(t_data *data, t_info *info)
-// {
-// 	int	i;
+int	ft_fill_tab_cmd(t_data *data, t_info *info)
+{
+	int	i;
 
-// 	i = 0;
-// 	while (i < data->nb_command)
-// 	{
-// 		ft_init_cmd(data, i);
-// 		if (i == 0)
-// 		{
-// 			if (ft_fill_cmd(data->cmd[i], data->cmd[i]->fd_out, info, true) != FUNCTION_SUCCESS)//vraiment a changer car degueu
-// 				return (MEMORY_ERROR_NB);
-// 		}
-// 		else
-// 		{
-// 			if (ft_fill_cmd(data->cmd[i], data->cmd[i-1]->fd_out, info, false)!= FUNCTION_SUCCESS)
-// 				return (MEMORY_ERROR_NB);
-// 		}
-// 		i++;
-// 	}
-// 	return (FUNCTION_SUCCESS);
-// }
+	i = 0;//utilisr current cmd
+	while (i < data->nb_command)
+	{
+		ft_init_cmd(data, i);
+		if (i == 0) //plus besoin, on va juste en mettre 1
+		{
+			if (ft_fill_cmd(data->cmd[i], data->cmd[i]->fd_out, info, true) != FUNCTION_SUCCESS)//vraiment a changer car degueu
+				return (MEMORY_ERROR_NB);
+		}
+		else
+		{
+			if (ft_fill_cmd(data->cmd[i], data->cmd[i-1]->fd_out, info, false)!= FUNCTION_SUCCESS)
+				return (MEMORY_ERROR_NB);
+		}
+		i++;
+	}
+	return (FUNCTION_SUCCESS);
+}
 
 
 int	ft_parser(t_info *info, t_data *data)
@@ -83,7 +83,7 @@ int	ft_parser(t_info *info, t_data *data)
 	ft_count_cmd(info->tokens, data);
 	if (ft_init_tab_cmd(data) !=  FUNCTION_SUCCESS)
 		return (MEMORY_ERROR_NB);
-	// ft_fill_tab_cmd(data, info);
+	ft_fill_tab_cmd(data, info);
 	// //ft_display_tab_cmd(*data);
 	ft_reinit_data(data);
 	return (0);
