@@ -2,7 +2,7 @@
 #include "minishell.h"
 #include "minishell_louis.h"
 
-int	ft_insert_expand_splitted(t_list *list, char *new_word)
+int	ft_insert_expand_splitted(t_list *list, char *new_word, bool join_next)
 {
 	t_token *new_token;
 	t_list	*new;
@@ -13,8 +13,8 @@ int	ft_insert_expand_splitted(t_list *list, char *new_word)
 	new_token->string = new_word;
 	new_token->type = type_word;
 	new_token->expand = false;
-	new_token->join_with_next = true; //pb ici, attention pour le dernier
-	new_token->quote = true;
+	new_token->join_with_next = join_next; //pb ici, attention pour le dernier
+	new_token->quote = false;
 	new_token->empty_node = false;
 	new = ft_lstnew((void *)new_token);
 	if (!new)
@@ -39,8 +39,12 @@ int	ft_expand_val_split(t_list *list, char *env_val)
 	current_token->empty_node = true;
 	while (splited && splited[i])
 	{
-		ft_insert_expand_splitted(list, splited[i]);
+		if (splited[i + 1] || current_token->join_with_next)
+			ft_insert_expand_splitted(list, splited[i], true);
+		else
+			ft_insert_expand_splitted(list, splited[i], false);
 		i++;
+		list = list->next;
 	}
 	return (FUNCTION_SUCCESS);
 }
