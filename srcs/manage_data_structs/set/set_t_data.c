@@ -12,8 +12,8 @@ void	ft_init_data(t_data *data)
 void	ft_reinit_data(t_data *data)
 {
 	ft_init_data(data);
-	if (data->cmd)
-	 	ft_clean_2d_array((void **)data->cmd, (void *)ft_clean_t_cmd);
+	// if (data->cmd)
+	//  	ft_clean_2d_array((void **)data->cmd, (void *)ft_clean_t_cmd);
 }
 
 

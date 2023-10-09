@@ -180,7 +180,8 @@ int		ft_insert_next_node(int i, t_list *list);
 
 /* PARSEUR */
 int		ft_parser(t_info *info, t_data *data);
-void	ft_count_cmd(t_info info, t_data *data);
+void	ft_count_cmd(t_list *list, t_data *data);
+//void	ft_count_cmd(t_info info, t_data *data); old
 int		ft_init_tab_cmd(t_data *data);
 int		ft_init_cmd(t_data *data, int i);
 int		ft_fill_cmd(t_cmd *cmd, t_in_out out_prev, t_info *info, bool first);

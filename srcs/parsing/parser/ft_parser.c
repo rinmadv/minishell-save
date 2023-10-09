@@ -17,38 +17,74 @@
 // 	}	
 // }
 
-int	ft_fill_tab_cmd(t_data *data, t_info *info)
-{
-	int	i;
 
-	i = 0;
-	while (i < data->nb_command)
+
+void	ft_count_cmd(t_list *list, t_data *data)
+{
+	t_token	*curr_tok;
+
+	data->nb_command = 1;
+	while (list)
 	{
-		ft_init_cmd(data, i);
-		if (i == 0)
-		{
-			if (ft_fill_cmd(data->cmd[i], data->cmd[i]->fd_out, info, true) != FUNCTION_SUCCESS)//vraiment a changer car degueu
-				return (MEMORY_ERROR_NB);
-		}
-		else
-		{
-			if (ft_fill_cmd(data->cmd[i], data->cmd[i-1]->fd_out, info, false)!= FUNCTION_SUCCESS)
-				return (MEMORY_ERROR_NB);
-		}
-		i++;
+		curr_tok = (t_token *)list->content;
+		if (curr_tok->type == type_pipe)
+			data->nb_command += 1 ;
+		list = list->next;
 	}
-	return (FUNCTION_SUCCESS);
+	printf("nb cmd : %d\n", data->nb_command);
+}
+
+bool	ft_check_empty_tokens_list(t_list *list)
+{
+	t_token	*curr_tok;
+
+	while (list)
+	{
+		curr_tok = (t_token *)list->content;
+		if (curr_tok->empty_node != true)
+			return (false);
+		list = list->next;
+	}
+	return (true);
 }
 
 
-int	ft_parser(t_info	*info, t_data *data)
+// int	ft_fill_tab_cmd(t_data *data, t_info *info)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (i < data->nb_command)
+// 	{
+// 		ft_init_cmd(data, i);
+// 		if (i == 0)
+// 		{
+// 			if (ft_fill_cmd(data->cmd[i], data->cmd[i]->fd_out, info, true) != FUNCTION_SUCCESS)//vraiment a changer car degueu
+// 				return (MEMORY_ERROR_NB);
+// 		}
+// 		else
+// 		{
+// 			if (ft_fill_cmd(data->cmd[i], data->cmd[i-1]->fd_out, info, false)!= FUNCTION_SUCCESS)
+// 				return (MEMORY_ERROR_NB);
+// 		}
+// 		i++;
+// 	}
+// 	return (FUNCTION_SUCCESS);
+// }
+
+
+int	ft_parser(t_info *info, t_data *data)
 {
-	ft_count_cmd(*info, data);
-	//checker si 0 cmd, normalement ce sera deja fait car 1) ligne vide renvoi juste le parseur, mais 2) attention avec envoi de just ""
+	if (ft_check_empty_tokens_list(info->tokens))
+	{
+		ft_reinit_data(data);
+		return (printf("LINE IS EMPTY\n"), LINE_IS_EMPTY);
+	}
+	ft_count_cmd(info->tokens, data);
 	if (ft_init_tab_cmd(data) !=  FUNCTION_SUCCESS)
 		return (MEMORY_ERROR_NB);
-	ft_fill_tab_cmd(data, info);
-	//ft_display_tab_cmd(*data);
-	//ft_reinit_data(data);
+	// ft_fill_tab_cmd(data, info);
+	// //ft_display_tab_cmd(*data);
+	ft_reinit_data(data);
 	return (0);
 }

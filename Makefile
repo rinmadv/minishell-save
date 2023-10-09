@@ -47,6 +47,7 @@ SRCS_FILES	= 	minishell.c \
 				parsing/lists/ft_lst_env_last.c \
 				parsing/lists/ft_lst_env_new.c \
 				parsing/lists/ft_lst_env_pop.c \
+				parsing/parser/ft_parser.c \
 				parsing/parsing.c 
 				
 PREFIX	= srcs
