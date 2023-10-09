@@ -13,7 +13,6 @@ bool	ft_check_empty_line(const char *str, int i)
 	return (false);
 }
 
-
 int	parsing(t_data *data, const char *input)
 {
 	t_info	*info;

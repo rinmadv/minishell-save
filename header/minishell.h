@@ -177,9 +177,6 @@ int		ft_remove_quotes(t_list *list, char quote);
 int		ft_split_quotes(t_list *list);
 int		ft_insert_next_node(int i, t_list *list);
 
-/* NEW EXPAND */
-int	 ft_detatch_expand(t_list *list, int i);
-
 
 /* PARSEUR */
 int		ft_parser(t_info *info, t_data *data);
@@ -209,9 +206,9 @@ bool		ft_is_cmd_separator(char c);
 bool		ft_is_dollar(char c);
 
 /* Expand */
+int	 ft_detatch_expand(t_list *list, int i);
 int		ft_expand(t_info *info, t_envlist *envp);
-char	*ft_manage_expand(const char *input, t_envlist *env);
-int	ft_expand_val(t_list *list, t_envlist *env);
+int		ft_expand_val(t_list *list, t_envlist *env);
 
 /* Envp  */
 char		*ft_get_val(char *line);
