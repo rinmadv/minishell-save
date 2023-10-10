@@ -53,8 +53,8 @@ typedef enum e_token_type
 	type_default,
 	type_pipe,
 	type_word,
-	type_in,
-	type_out,
+	type_from,
+	type_to,
 	type_heredoc,
 	type_append
 }			t_token_type;
@@ -94,15 +94,23 @@ typedef enum e_builtin
 	cmd_exit,
 }			t_builtin;
 
-typedef enum e_in_out
+typedef enum e_filetype
 {
-	stdin_,
-	stdout_,
+	pipe_in_,
+	pipe_out_,
+	file_from,
+	file_to,
 	heredoc_,
 	append_,
-	pipe_,
-	file_,
-}			t_in_out;
+}			t_filetype;
+
+typedef struct s_files
+{
+  char			*filename;
+  t_filetype	filetype;
+  bool			open;
+  bool			redirect;
+}				t_files;
 
 typedef struct s_cmd
 {
@@ -110,10 +118,7 @@ typedef struct s_cmd
 	char				**cmd_args;
 	t_builtin			cmd_type;
 	char				**path_cmd;
-	t_in_out			input;
-	t_in_out			output;
-	char				*heredoc_name;
-	char				*heredoc_sep;
+	t_list				*list_files;
 	int					fd_in;
 	int					fd_out;
 }			t_cmd;
@@ -184,9 +189,8 @@ void	ft_count_cmd(t_list *list, t_data *data);
 //void	ft_count_cmd(t_info info, t_data *data); old
 int		ft_init_tab_cmd(t_data *data);
 int		ft_init_cmd(t_data *data, int i);
-int		ft_fill_cmd(t_cmd *cmd, t_in_out out_prev, t_info *info, bool first);
-void	ft_fill_cmd_test_in(t_cmd *cmd, t_info *info, t_in_out out_prev, bool first);
-void	ft_fill_cmd_test_out(t_cmd *cmd, t_info *info);
+int		ft_fill_cmd(t_cmd *cmd, t_info *info, t_data *data);
+int	ft_fill_cmd_redirs(t_cmd *cmd, t_data *data);
 int		ft_fill_cmd_count_args(t_info *info);
 int		ft_fill_cmd_init_tab_args(int nb_args, t_cmd *cmd);
 int		ft_fill_cmd_fill_tab_args(t_cmd *cmd, t_info *info, int nb_args);

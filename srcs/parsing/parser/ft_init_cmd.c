@@ -11,9 +11,8 @@ int	ft_init_cmd(t_data *data, int i)
 	data->cmd[i]->cmd_args = NULL;
 	data->cmd[i]->cmd_type = no;
 	data->cmd[i]->path_cmd = NULL;
-	data->cmd[i]->input = stdin_;
-	data->cmd[i]->output = stdout_;
-	data->cmd[i]->fd_in = -1;
-	data->cmd[i]->fd_out = -1;
+	data->cmd[i]->list_files = NULL;
+	data->cmd[i]->fd_in = 0;
+	data->cmd[i]->fd_out = 1;
 	return (FUNCTION_SUCCESS);
 }

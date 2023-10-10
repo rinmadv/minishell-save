@@ -53,10 +53,10 @@ SRCS_FILES	= 	minishell.c \
 				parsing/parser/ft_fill_cmd_count_args.c \
 				parsing/parser/ft_fill_cmd_fill_tab_args.c \
 				parsing/parser/ft_fill_cmd_init_tab_args.c \
-				parsing/parser/ft_fill_cmd_test_in.c \
-				parsing/parser/ft_fill_cmd_test_out.c \
+				parsing/parser/ft_fill_cmd_redirs.c \
 				parsing/parser/ft_fill_cmd.c \
 				parsing/parser/ft_init_cmd.c \
+				parsing/parser/ft_fill_cmd_test_in.c \
 				parsing/parsing.c 
 				
 PREFIX	= srcs

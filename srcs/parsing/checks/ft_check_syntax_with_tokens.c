@@ -19,7 +19,7 @@ bool	ft_check_syntax_with_tokens(t_list *token)
 			if (i == 0 || !token->next || next_node->type == type_pipe)
 				return (false);
 		}
-		else if (current_node->type >= type_in)
+		else if (current_node->type >= type_from)
 		{
 			if (!token->next || next_node->type != type_word)
 				return (false);

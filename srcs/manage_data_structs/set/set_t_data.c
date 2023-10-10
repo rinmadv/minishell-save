@@ -7,6 +7,7 @@ void	ft_init_data(t_data *data)
 	data->current_cmd = 0;
 	data->nb_command = 0;
 	data->exec_val = 0;
+	data->cmd_rank = default_;
 }
 
 void	ft_reinit_data(t_data *data)
