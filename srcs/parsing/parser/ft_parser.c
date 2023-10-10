@@ -26,9 +26,9 @@ int	ft_fill_tab_cmd(t_data *data, t_list *list)
 	curr_token = (t_token *)list->content;
 	while (data->current_cmd < data->nb_command)
 	{
-		if (ft_init_cmd(data, data->current_cmd) != FUNCTION_SUCCESS);
+		if (ft_init_cmd(data, data->current_cmd) != FUNCTION_SUCCESS)
 			return (MEMORY_ERROR_NB); //et free des trucs
-		if (ft_fill_cmd(data->cmd[data->current_cmd], list, data) != FUNCTION_SUCCESS)
+		if (ft_fill_cmd(data->cmd[data->current_cmd], list) != FUNCTION_SUCCESS)
 			return (MEMORY_ERROR_NB);
 		data->current_cmd++;
 		while (curr_token->type != type_pipe)
@@ -53,7 +53,7 @@ int	ft_parser(t_info *info, t_data *data)
 	ft_count_cmd(info->tokens, data);
 	if (ft_init_tab_cmd(data) !=  FUNCTION_SUCCESS)
 		return (MEMORY_ERROR_NB);
-	ft_fill_tab_cmd(data, info);
+	ft_fill_tab_cmd(data, info->tokens);
 	// //ft_display_tab_cmd(*data);
 	ft_reinit_data(data);
 	return (0);

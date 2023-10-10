@@ -2,7 +2,7 @@
 #include "minishell.h"
 #include "minishell_louis.h"
 
-int	ft_fill_cmd(t_cmd *cmd, t_list *list, t_data *data)
+int	ft_fill_cmd(t_cmd *cmd, t_list *list)
 {
 	int	nb_args;
 

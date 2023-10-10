@@ -189,7 +189,7 @@ int		ft_parser(t_info *info, t_data *data);
 void	ft_count_cmd(t_list *list, t_data *data);
 int		ft_init_tab_cmd(t_data *data);
 int		ft_init_cmd(t_data *data, int i);
-int		ft_fill_cmd(t_cmd *cmd, t_list *list, t_data *data);
+int		ft_fill_cmd(t_cmd *cmd, t_list *list);
 int		ft_fill_cmd_redirs_files(t_cmd *cmd, t_list *list);
 int		ft_fill_cmd_count_args(t_list *list);
 int		ft_fill_cmd_init_tab_args(int nb_args, t_cmd *cmd);

@@ -48,6 +48,7 @@ void	ft_reinit_info(t_info *info)
 void	ft_clean_token(t_token *token)
 {
 	free(token->string);
+	free(token);
 }
 
 void	ft_clean_info_bis(t_info **info)

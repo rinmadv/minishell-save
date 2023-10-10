@@ -17,11 +17,10 @@ int	ft_fill_cmd_fill_tab_args(t_cmd *cmd, t_list *list, int nb_args)
 			if (!cmd->cmd_args[i])
 				return (MEMORY_ERROR_NB); // GRRRRR
 			i++;
-			info->current_token++;
 		}
 		list = list->next;
 		if (!list)
-			(break;);
+			break;
 		curr_token = list->content;
 	}
 	cmd->cmd_args[i] = malloc(sizeof(char) * 1);	
