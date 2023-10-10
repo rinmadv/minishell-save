@@ -138,7 +138,7 @@ typedef struct s_data
 	int			nb_command; // a sup apres louis
 	t_cmd		**cmd; // a sup apres louis
 	t_envlist	*envp; // a garder
-	int			exec_val;
+	int			last_exec_val;
 }			t_data;
 
 //fonctions
@@ -187,14 +187,13 @@ int		ft_insert_next_node(int i, t_list *list);
 /* PARSEUR */
 int		ft_parser(t_info *info, t_data *data);
 void	ft_count_cmd(t_list *list, t_data *data);
-//void	ft_count_cmd(t_info info, t_data *data); old
 int		ft_init_tab_cmd(t_data *data);
 int		ft_init_cmd(t_data *data, int i);
-int		ft_fill_cmd(t_cmd *cmd, t_info *info, t_data *data);
-int		ft_fill_cmd_redirs(t_cmd *cmd, t_data *data);
-int		ft_fill_cmd_count_args(t_info *info);
+int		ft_fill_cmd(t_cmd *cmd, t_list *list, t_data *data);
+int		ft_fill_cmd_redirs_files(t_cmd *cmd, t_list *list);
+int		ft_fill_cmd_count_args(t_list *list);
 int		ft_fill_cmd_init_tab_args(int nb_args, t_cmd *cmd);
-int		ft_fill_cmd_fill_tab_args(t_cmd *cmd, t_info *info, int nb_args);
+int		ft_fill_cmd_fill_tab_args(t_cmd *cmd, t_list *list, int nb_args);
 void	ft_display_tab_cmd(t_data data);
 
 /* ERRORS */

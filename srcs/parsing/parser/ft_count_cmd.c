@@ -2,16 +2,16 @@
 #include "minishell.h"
 #include "minishell_louis.h"
 
-// void	ft_count_cmd(t_info info, t_data *data)
-// {
-// 	int		i;
+void	ft_count_cmd(t_list *list, t_data *data)
+{
+	t_token	*curr_tok;
 
-// 	i = 0;
-// 	data->nb_command = 1;
-// 	while (i < info.nb_tokens)
-// 	{
-// 		if (info.tokens[i]->type == type_pipe)
-// 			data->nb_command++;
-// 		i++;
-// 	}
-// }
+	data->nb_command = 1;
+	while (list)
+	{
+		curr_tok = (t_token *)list->content;
+		if (curr_tok->type == type_pipe)
+			data->nb_command += 1 ;
+		list = list->next;
+	}
+}

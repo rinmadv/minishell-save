@@ -17,7 +17,7 @@ void	ft_display_tab_cmd(t_data data)
 			printf("cmd[%d] arg[%d] : %s\n", i, j, data.cmd[i]->cmd_args[j]);
 			j++;
 		}
-		printf("in : %d, out : %d\n", data.cmd[i]->input, data.cmd[i]->output);
+		//printf("in : %d, out : %d\n", data.cmd[i]->input, data.cmd[i]->output); a changer mais flemme
 		printf("\n");
 		i++;
 	}
