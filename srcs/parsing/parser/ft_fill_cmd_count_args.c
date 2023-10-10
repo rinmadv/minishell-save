@@ -5,10 +5,9 @@
 int	ft_fill_cmd_count_args(t_list *list)
 {
 	int nb_agrs;
-	
-	nb_agrs = 0;
 	t_token	*curr_token;
 
+	nb_agrs = 0;
 	curr_token = (t_token*)list->content;
 	while (curr_token->type != type_pipe)
 	{
