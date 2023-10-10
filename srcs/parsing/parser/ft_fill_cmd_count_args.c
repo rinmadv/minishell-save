@@ -2,17 +2,22 @@
 #include "minishell.h"
 #include "minishell_louis.h"
 
-int	ft_fill_cmd_count_args(t_info *info)
+int	ft_fill_cmd_count_args(t_list *list)
 {
-	int nb_agrs = 0;
-	if (info->current_token < info->nb_tokens && info->tokens[info->current_token]->type == type_pipe)
-			info->current_token++;
-	//printf(GREEN"Current token : %s\n"NC, info->tokens[info->current_token]->string);
-	while (info->current_token < info->nb_tokens && info->tokens[info->current_token]->type != type_pipe) //ie. dernier token ou pipe
+	int nb_agrs;
+	
+	nb_agrs = 0;
+	t_token	*curr_token;
+
+	curr_token = (t_token*)list->content;
+	while (curr_token->type != type_pipe)
 	{
-		nb_agrs++;
-		info->current_token++;
+		if (curr_token->type == type_word && !curr_token->redir_file)
+			nb_agrs++;
+		list = list->next;
+		if (!list)
+			return (nb_agrs);
+		curr_token = list->content;
 	}
-	//printf(BLUE"nb args : %d\n"NC, nb_agrs);
 	return (nb_agrs);
 }

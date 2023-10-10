@@ -13,6 +13,7 @@ int	ft_init_token(t_token *new_token, const char *input, int *i)
 	new_token->join_with_next = false;
 	new_token->quote = no_q;
 	new_token->empty_node = false;
+	new_token->redir_file = false;
 	return (FUNCTION_SUCCESS);
 }
 

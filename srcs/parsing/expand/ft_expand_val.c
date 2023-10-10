@@ -16,6 +16,7 @@ int	ft_insert_expand_splitted(t_list *list, char *new_word, bool join_next)
 	new_token->join_with_next = join_next; //pb ici, attention pour le dernier
 	new_token->quote = false;
 	new_token->empty_node = false;
+	new_token->redir_file = false;
 	new = ft_lstnew((void *)new_token);
 	if (!new)
 		return (MEMORY_ERROR_NB);

@@ -68,6 +68,7 @@ typedef struct s_token
 	bool			expand;
 	t_open_quote	quote;
 	bool			empty_node;
+	bool			redir_file;
 }			t_token;
 
 typedef struct s_info

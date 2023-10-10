@@ -44,6 +44,7 @@ int	ft_insert_next_node(int i, t_list *list)
 	new_token->join_with_next = false;
 	new_token->quote = false;
 	new_token->empty_node = false;
+	new_token->redir_file = false;
 	new = ft_lstnew((void *)new_token);
 	if (!new)
 		return (MEMORY_ERROR_NB);
