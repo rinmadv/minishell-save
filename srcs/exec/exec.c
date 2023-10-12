@@ -192,7 +192,7 @@ t_pipe	*gen_child(t_data *data, t_pipe *pipes)
 	if ((data->current_cmd == 1 && data->nb_command > 1) || (data->current_cmd == 2 && data->nb_command > 2))
 		data->cmd[data->current_cmd]->input = pipe_; // a delete une fois le soucis sur la valeur pipe_ reglée
 	if (data->current_cmd == 1)
-		ft_display_tab_cmd(*data);
+		ft_display_tab_cmd(data);
 	if (data->nb_command > 1 && data->current_cmd >= 1)
 		pipes = new_pipes(pipes, data->current_cmd);
 	if (data->cmd[data->current_cmd]->cmd_type != no && data->nb_command == 1)

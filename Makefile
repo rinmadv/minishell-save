@@ -71,14 +71,17 @@ LIBFT = $(LIBFT_DIR)/libft.a
 
 INCLUDE	= -Ilibft -Iheader -Ireadline
 
-CC    = cc
+CC    = gcc
 
-CFLAGS  = -Wall -Wextra -Werror -g3 #-fsanitize=address
+CFLAGS  = -Wall -Wextra -Werror -g3
 
 NAME    = minishell
 
 DEPS			=	${SRCS:.c=.d}
 
+ifeq ($(debug), true)
+	CFLAGS += -fsanitize=address,undefined
+endif
 
 #################
 #### DISPLAY ####

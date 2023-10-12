@@ -11,7 +11,8 @@ void	ft_count_cmd(t_list *list, t_data *data)
 	{
 		curr_tok = (t_token *)list->content;
 		if (curr_tok->type == type_pipe)
-			data->nb_command += 1 ;
+			data->nb_command += 1;
 		list = list->next;
 	}
+	printf("data --> %p\n", data);
 }

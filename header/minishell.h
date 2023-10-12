@@ -145,7 +145,7 @@ typedef struct s_data
 //hihi
 /* Create and Init */
 
-t_data		*ft_create_data(t_data *data, char **envp);
+t_data		*ft_create_data(char **envp);
 void		ft_init_data(t_data *data);
 t_info		*create_info(t_info *info);
 void		ft_init_info(t_info *info);
@@ -194,7 +194,7 @@ int		ft_fill_cmd_redirs_files(t_cmd *cmd, t_list *list);
 int		ft_fill_cmd_count_args(t_list *list);
 int		ft_fill_cmd_init_tab_args(int nb_args, t_cmd *cmd);
 int		ft_fill_cmd_fill_tab_args(t_cmd *cmd, t_list *list, int nb_args);
-void	ft_display_tab_cmd(t_data data);
+void	ft_display_tab_cmd(t_data *data);
 
 /* ERRORS */
 int				ft_error(int err_code);

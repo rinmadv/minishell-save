@@ -1,7 +1,11 @@
 NAME = libft.a
 
-CC = cc
-CFLAGS = -Wall -Wextra -Werror -g3 #-fsanitize=address
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror -g3
+
+ifeq ($(debug), true)
+	CFLAGS += -fsanitize=address,undefined
+endif
 
 SRCS_FILES = 	memory/ft_bzero.c \
 				memory/ft_memcpy.c \

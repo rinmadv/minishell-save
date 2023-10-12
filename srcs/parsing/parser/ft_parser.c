@@ -45,16 +45,20 @@ int	ft_fill_tab_cmd(t_data *data, t_list *list)
 
 int	ft_parser(t_info *info, t_data *data)
 {
+	printf("data(ft_parser 1) -> %p\n", data);
+	data->nb_command = 0;
+	printf("data(ft_parser 2) -> %p\n", data);
 	if (ft_check_empty_tokens_list(info->tokens))
 	{
 		ft_reinit_data(data);
 		return (printf("LINE IS EMPTY\n"), LINE_IS_EMPTY);
 	}
 	ft_count_cmd(info->tokens, data);
+	//printf("nb cmd : %d\n", data->nb_command);
 	if (ft_init_tab_cmd(data) !=  FUNCTION_SUCCESS)
 		return (MEMORY_ERROR_NB);
 	ft_fill_tab_cmd(data, info->tokens);
-	// //ft_display_tab_cmd(*data);
+	ft_display_tab_cmd(data);
 	ft_reinit_data(data);
 	return (0);
 }
