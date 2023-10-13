@@ -49,7 +49,7 @@ int	ft_fill_tab_cmd(t_data *data, t_list *list)
 	{
 		printf("current token : %s\n", curr_token->string);
 		if (ft_init_cmd(data, data->current_cmd)
-			&& ft_fill_cmd(data->cmd[data->current_cmd], list, data))
+			|| ft_fill_cmd(data->cmd[data->current_cmd], list, data))
 			return (MEMORY_ERROR_NB);
 		data->current_cmd++;
 		while (curr_token->type != type_pipe)
@@ -77,7 +77,8 @@ int	ft_interprete(t_info *info, t_data *data)
 	printf("nb cmd : %d\n", data->nb_command);
 	if (ft_init_tab_cmd(data) != FUNCTION_SUCCESS)
 		return (MEMORY_ERROR_NB);
-	ft_fill_tab_cmd(data, info->tokens);
+	if (ft_fill_tab_cmd(data, info->tokens))
+		return (MEMORY_ERROR_NB);
 	ft_display_tab_cmd(data);
 	ft_reinit_data(data);
 	return (0);

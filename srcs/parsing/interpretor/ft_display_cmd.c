@@ -25,14 +25,17 @@ void	ft_display_tab_cmd(t_data *data)
 	int	j;
 
 	i = 0;
+	printf("data : %p\n", data);
+	printf("data.cmd : %p\n", data->cmd);
+	printf("data.cmd[%d] : %p\n", i, data->cmd[i]);
 	while (i < data->nb_command)
 	{
 		printf(GREEN"cmd %d\n"NC, i);
 		j = 0;
-		while (data->cmd[i] && data->cmd[i]->cmd_args[j]
-			&& data->cmd[i]->cmd_args[j][0])
+		while (data->cmd[i] && data->cmd[i]->cmd_args[j])
 		{
-			printf("arg[%d], %s\n", j, data->cmd[i]->cmd_args[j]);
+			if (data->cmd[i]->cmd_args[j][0])
+				printf("arg[%d], %s\n", j, data->cmd[i]->cmd_args[j]);
 			j++;
 		}
 		printf("arg[%d], %s\n", j, data->cmd[i]->cmd_args[j]);

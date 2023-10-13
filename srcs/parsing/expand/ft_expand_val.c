@@ -50,10 +50,11 @@ int	ft_expand_val_split(t_list *list, char *env_val)
 
 int	ft_expand_val(t_list *list, t_envlist *env)
 {
-	t_token		*curr_token;
-	const int	len = ft_strlen(curr_token->string) + 1;
+	t_token	*curr_token;
+	int		len;
 
 	curr_token = (t_token *)list->content;
+	len = ft_strlen(curr_token->string) + 1;
 	while (env && ft_strncmp(curr_token->string, (const char *)env->key, len))
 		env = env->next;
 	free(curr_token->string); //maybe invalide free

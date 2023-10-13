@@ -24,7 +24,7 @@ int	ft_join_nodes(t_list *list)
 			if (list)
 				current_token = (t_token *)list->content;
 		}
-		while (list && current_token->join_with_next)
+		while (list && current_token->join_with_next) 
 		{
 			next_node = list->next;
 			if (next_node)
