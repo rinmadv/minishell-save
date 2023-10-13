@@ -17,7 +17,7 @@ int	ft_init_token(t_token *new_token, const char *input, int *i)
 	return (FUNCTION_SUCCESS);
 }
 
-int	ft_lexer(const char *input, t_info *info)
+int	ft_tokenise(const char *input, t_info *info)
 {
 	int		i;
 	t_list	*new_node;
@@ -27,14 +27,14 @@ int	ft_lexer(const char *input, t_info *info)
 	while (input[i])
 	{
 		if (!ft_check_empty_line(input, i))
-			break;
+			break ;
 		new_token = malloc(sizeof(t_token));
 		if (!new_token)
 			return (MEMORY_ERROR_NB);
 		if (ft_init_token(new_token, input, &i) != FUNCTION_SUCCESS)
 			return (MEMORY_ERROR_NB); //penser a bien free
 		new_node = ft_lstnew((void *)new_token);
-		if(!new_node)
+		if (!new_node)
 			return (MEMORY_ERROR_NB);
 		ft_lstadd_back(&info->tokens, new_node);
 	}

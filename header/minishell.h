@@ -166,7 +166,7 @@ int			parsing(t_data *data, const char *input);
 
 /* Check pre parsing*/
 bool		check_syntax(const char *str);
-char		check_open_quote(const char *input);
+char		ft_check_open_quote(const char *input);
 bool		check_redir(const char *str);
 bool		check_pipe(const char *str);
 void		ft_pass_when_quote(const char *str, int *i);
@@ -174,27 +174,29 @@ bool		ft_check_syntax_with_tokens(t_list *token);
 bool		ft_check_empty_line(const char	*str, int i);
 
 /* LEXER */
-int	ft_lexer(const char *input, t_info *info);
+int	ft_tokenise(const char *input, t_info *info);
 char			*get_token_val(const char *str, int *i);
 t_token_type	get_token_type(const char *token);
 void			ft_display_lexer(t_info info);
-int		ft_retreat_lexer(t_info *info);
+int		ft_del_quotes(t_info *info);
 int		ft_remove_quotes(t_list *list, char quote);
 int		ft_split_quotes(t_list *list);
 int		ft_insert_next_node(int i, t_list *list);
 
 
 /* PARSEUR */
-int		ft_parser(t_info *info, t_data *data);
+int		ft_interprete(t_info *info, t_data *data);
 void	ft_count_cmd(t_list *list, t_data *data);
 int		ft_init_tab_cmd(t_data *data);
 int		ft_init_cmd(t_data *data, int i);
-int		ft_fill_cmd(t_cmd *cmd, t_list *list);
+int		ft_fill_cmd(t_cmd *cmd, t_list *list, t_data *data);
+int		ft_fill_cmd_redirs(t_cmd *cmd, t_data *data, t_list *list);
 int		ft_fill_cmd_redirs_files(t_cmd *cmd, t_list *list);
 int		ft_fill_cmd_count_args(t_list *list);
 int		ft_fill_cmd_init_tab_args(int nb_args, t_cmd *cmd);
 int		ft_fill_cmd_fill_tab_args(t_cmd *cmd, t_list *list, int nb_args);
 void	ft_display_tab_cmd(t_data *data);
+void	ft_print_redir_files(t_list *list_files);
 
 /* ERRORS */
 int				ft_error(int err_code);

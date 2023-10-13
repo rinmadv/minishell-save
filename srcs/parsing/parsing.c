@@ -2,16 +2,6 @@
 #include "minishell.h"
 #include "minishell_louis.h"
 
-bool	ft_check_empty_line(const char *str, int i)
-{
-	while (str[i])
-	{
-		if (str[i] > 32)
-			return (true);
-		i++;
-	}
-	return (false);
-}
 
 int	parsing(t_data *data, const char *input)
 {
@@ -19,7 +9,7 @@ int	parsing(t_data *data, const char *input)
 	int		function_return;
 	
 	info = NULL;
-	if (!check_syntax(input)) // faudra juste appeler check quotes en fait
+	if (ft_check_open_quote(input))
 		return (SYNTAX_QUOTE_ERROR);
 	else if (!ft_check_empty_line(input, 0))
 		return (FUNCTION_SUCCESS);
@@ -28,7 +18,7 @@ int	parsing(t_data *data, const char *input)
 		info = create_info(info);
 		if (!info)
 			return (ft_error(MEMORY_ERROR_NB)); //besoin d'effacer qq chose aussi
-		function_return = ft_lexer(input, info);
+		function_return = ft_tokenise(input, info);
 		if (function_return == LINE_IS_EMPTY)
 			return (FUNCTION_SUCCESS); // faut free des trucs tho
 		if (function_return != FUNCTION_SUCCESS)
@@ -39,7 +29,7 @@ int	parsing(t_data *data, const char *input)
 		{
 			printf(BLUE"\nLEXER\n"NC);
 			ft_display_lexer(*info);
-			if (ft_retreat_lexer(info) != FUNCTION_SUCCESS) 
+			if (ft_del_quotes(info) != FUNCTION_SUCCESS) 
 				return (MEMORY_ERROR_NB);
 			printf(BLUE"\nRETREAT LEXER\n"NC);
 			ft_display_lexer(*info);
@@ -49,8 +39,7 @@ int	parsing(t_data *data, const char *input)
 			printf(BLUE"\nJOIN\n"NC);
 			ft_join_nodes(info->tokens);
 			ft_display_lexer(*info);
-			printf("data (parsing) -> %p\n", data);
-			function_return = ft_parser(info, data); // attention, on va avoir une verif a faire
+			function_return = ft_interprete(info, data); // attention, on va avoir une verif a faire
 			// if (function_return != FUNCTION_SUCCESS)
 			// 	return (ft_error(function_return, data, info));
 		}

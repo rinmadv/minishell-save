@@ -6,13 +6,12 @@ void	ft_display_lexer(t_info info)
 {
 	t_token	*curr_token;
 
-	while(info.tokens)
+	while (info.tokens)
 	{
-		curr_token = (t_token*)info.tokens->content;
+		curr_token = (t_token *)info.tokens->content;
 		dprintf(STDERR_FILENO, "New	");
 		if (!curr_token->empty_node)
 			dprintf(STDERR_FILENO, "str : %s, ", curr_token->string);
-
 		else
 			dprintf(STDERR_FILENO, "          ");
 		dprintf(STDERR_FILENO, "type : %d, ", curr_token->type);

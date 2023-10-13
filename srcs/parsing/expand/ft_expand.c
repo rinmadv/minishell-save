@@ -1,4 +1,3 @@
-
 #include "minishell.h"
 #include "minishell_louis.h"
 
@@ -13,7 +12,8 @@ int	ft_expand(t_info *info, t_envlist *envp)
 	while (list)
 	{
 		current_token = (t_token *)list->content;
-		if (current_token->type == type_word && (current_token->quote != simple_q))
+		if (current_token->type == type_word
+			&& (current_token->quote != simple_q))
 		{
 			dollar_loc = ft_strchr_int(current_token->string, '$');
 			if (dollar_loc >= 0)

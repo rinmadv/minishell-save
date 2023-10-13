@@ -1,4 +1,3 @@
-
 #include "minishell.h"
 #include "minishell_louis.h"
 
@@ -9,9 +8,11 @@ int	ft_detatch_expand_first(int *i, t_list *list)
 
 	current_token = (t_token *)list->content;
 	*i += 1;
-	while (current_token->string[*i] && (!ft_is_space(current_token->string[*i]) && !ft_is_dollar(current_token->string[*i])))
-		*i += 1;
-	if (current_token->string[*i])//detacher ce qui vient apres
+	while (current_token->string[*i]
+		&& (!ft_is_space(current_token->string[*i])
+			&& !ft_is_dollar(current_token->string[*i])))
+				*i += 1;
+	if (current_token->string[*i]) //detacher ce qui vient apres
 	{
 		if (ft_insert_next_node(*i, list) != FUNCTION_SUCCESS)
 			return (MEMORY_ERROR_NB);
@@ -22,7 +23,7 @@ int	ft_detatch_expand_first(int *i, t_list *list)
 	if (!truncate)
 		return (MEMORY_ERROR_NB);
 	free(current_token->string);
-	current_token->string = ft_substr(truncate, 0, *i-1);
+	current_token->string = ft_substr(truncate, 0, *i - 1);
 	free(truncate);
 	if (!current_token->string)
 		return (MEMORY_ERROR_NB);
@@ -32,6 +33,7 @@ int	ft_detatch_expand_first(int *i, t_list *list)
 int	ft_detatch_expand_not_first(int *i, t_list *list)
 {
 	t_token	*current_token;
+	t_token	*next;
 	char	*truncate;
 
 	current_token = (t_token *)list->content;
@@ -39,7 +41,7 @@ int	ft_detatch_expand_not_first(int *i, t_list *list)
 		return (MEMORY_ERROR_NB);
 	if (current_token->join_with_next)
 	{
-		t_token *next = (t_token *)list->next->content;
+		next = (t_token *)list->next->content;
 		next->join_with_next = true;
 	}
 	current_token->join_with_next = true; //important de le garder apres
@@ -51,7 +53,7 @@ int	ft_detatch_expand_not_first(int *i, t_list *list)
 	return (FUNCTION_SUCCESS);
 }
 
-int	 ft_detatch_expand(t_list *list, int i)
+int	ft_detatch_expand(t_list *list, int i)
 {
 	if (i == 0)
 		return (ft_detatch_expand_first(&i, list));

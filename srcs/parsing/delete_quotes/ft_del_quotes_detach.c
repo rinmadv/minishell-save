@@ -4,20 +4,19 @@
 char	*ft_change_current_str(t_token *current_token, int i, char quote)
 {
 	char	*curr_word;
-	char	*truncate_quote; //a sup
-	(void) truncate_quote; //a sup
-	(void) quote; //a sup
+
 	current_token->join_with_next = true;
 	curr_word = ft_substr(current_token->string, 0, i);
 	if (!curr_word)
-		return (MEMORY_ERROR_PT);//careful
+		return (MEMORY_ERROR_PT);
 	if (current_token->string[0] == quote)
 		current_token->quote = true_q;
 	return (curr_word);
 }
 
+// on aura peut etre un segfault ici car on check pas si /0
 void	ft_get_i(char quote, char *string, int *i)
-{ // on aura peut etre un segfault ici car on check pas si /0
+{
 	*i += 1;
 	while (string[*i] != quote)
 		*i += 1;
@@ -26,15 +25,15 @@ void	ft_get_i(char quote, char *string, int *i)
 
 int	ft_insert_next_node(int i, t_list *list)
 {
-	t_token	*current_token;
-	t_token *new_token;
+	t_token	*curr_token;
+	t_token	*new_token;
 	char	*new_word;
 	t_list	*new;
 
-	current_token = (t_token *)list->content;
-	new_word = ft_substr(current_token->string, i, ft_strlen(current_token->string));
+	curr_token = (t_token *)list->content;
+	new_word = ft_substr(curr_token->string, i, ft_strlen(curr_token->string));
 	if (!new_word)
-		return (MEMORY_ERROR_NB);//careful
+		return (MEMORY_ERROR_NB);
 	new_token = malloc(sizeof(t_token));
 	if (!new_token)
 		return (MEMORY_ERROR_NB);
@@ -65,7 +64,7 @@ int	ft_detach_quotes(int i, t_list *list, char quote)
 		ft_get_i(quote, current_token->string, &i);
 		if (current_token->string[0] == quote)
 			current_token->quote = true_q;
-		if(!current_token->string[i]) // si jamais ya rien a split, on return
+		if (!current_token->string[i]) // si jamais ya rien a split, on return
 			return (FUNCTION_SUCCESS);
 	}
 	if (ft_insert_next_node(i, list) != FUNCTION_SUCCESS)
@@ -87,7 +86,7 @@ int	ft_split_quotes(t_list *list)
 	i = 0;
 	quote = 0;
 	current_token = (t_token *)list->content;
-	while (current_token->string[i] && !quote) 
+	while (current_token->string[i] && !quote)
 	{
 		quote = ft_is_quote(current_token->string[i]);
 		if (quote)

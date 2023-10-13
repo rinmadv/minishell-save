@@ -32,12 +32,12 @@ SRCS_FILES	= 	minishell.c \
 				parsing/envp/ft_print_env.c \
 				parsing/envp/ft_set_flag.c \
 				parsing/lexer/ft_display_lexer.c \
-				parsing/lexer/ft_lexer_get_token_type.c \
-				parsing/lexer/ft_lexer_get_token_val.c \
-				parsing/lexer/ft_lexer.c \
-				parsing/lexer/ft_retreat_lexer_remove_quotes.c \
-				parsing/lexer/ft_retreat_lexer_detach.c \
-				parsing/lexer/ft_retreat_lexer.c \
+				parsing/lexer/ft_tokenise_get_token_type.c \
+				parsing/lexer/ft_tokenise_get_token_val.c \
+				parsing/lexer/ft_tokenise.c \
+				parsing/lexer/ft_del_quotes_remove_quotes.c \
+				parsing/lexer/ft_del_quotes_detach.c \
+				parsing/lexer/ft_del_quotes.c \
 				parsing/expand/ft_expand.c \
 				parsing/expand/ft_expand_detach.c \
 				parsing/expand/ft_expand_val.c \
@@ -56,7 +56,7 @@ SRCS_FILES	= 	minishell.c \
 				parsing/parser/ft_fill_cmd_redirs.c \
 				parsing/parser/ft_init_cmd.c \
 				parsing/parser/ft_init_tab_cmd.c \
-				parsing/parser/ft_parser.c \
+				parsing/parser/ft_interprete.c \
 				parsing/parsing.c
 				
 PREFIX	= srcs
@@ -71,7 +71,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 
 INCLUDE	= -Ilibft -Iheader -Ireadline
 
-CC    = gcc
+CC    = cc
 
 CFLAGS  = -Wall -Wextra -Werror -g3
 
@@ -139,7 +139,7 @@ seed :
 
 .PHONY: re fclean all seed
 .SILENT:
-#				parsing/parser/ft_parser.c \
+#				parsing/parser/ft_interprete.c \
 				parsing/parser/ft_count_cmd.c \
 				parsing/parser/ft_init_tab_cmd.c \
 				parsing/parser/ft_init_cmd.c \
