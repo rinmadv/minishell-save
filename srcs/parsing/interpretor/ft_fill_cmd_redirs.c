@@ -52,7 +52,7 @@ int	ft_fill_cmd_redirs_files(t_cmd *cmd, t_list *list)
 	t_list	*new;
 
 	curr_tok = (t_token *)list->content;
-	while (curr_tok->type != type_pipe)
+	while (list && curr_tok->type != type_pipe)
 	{
 		while (list && curr_tok->type < type_from)
 		{
@@ -69,17 +69,24 @@ int	ft_fill_cmd_redirs_files(t_cmd *cmd, t_list *list)
 		redir->filetype = (t_filetype)curr_tok->type - 1;
 		list = list->next;
 		curr_tok = (t_token *)list->content;
-		while (curr_tok->empty_node)
+		while (list && curr_tok->empty_node)
 		{
-			// si join = false --> ambigious = true
-			list = list->next;
-			curr_tok = (t_token *)list->content;
+			if (!curr_tok->join_with_next)
+			{
+				redir->filetype = ambiguous;
+				redir->filename = NULL;
+				curr_tok->redir_file = true;
+			}
+				list = list->next;
+				if (list)
+					curr_tok = (t_token *)list->content;
 		}
-		//si ambigious = tru -> fonc ambigious, sinon : (reprendre à redir open
-		curr_tok->redir_file = true;
-		redir->filename = strdup(curr_tok->string);
-		if (!redir->filename)
-			return (MEMORY_ERROR_NB);
+		if (redir->filetype != ambiguous)
+		{
+			redir->filename = strdup(curr_tok->string);
+			if (!redir->filename)
+				return (MEMORY_ERROR_NB);
+		}
 		redir->open = false;
 		redir->redirect = false;
 		new = ft_lstnew((void *)redir);
