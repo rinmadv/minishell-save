@@ -25,9 +25,6 @@ void	ft_display_tab_cmd(t_data *data)
 	int	j;
 
 	i = 0;
-	printf("data : %p\n", data);
-	printf("data.cmd : %p\n", data->cmd);
-	printf("data.cmd[%d] : %p\n", i, data->cmd[i]);
 	while (i < data->nb_command)
 	{
 		printf(GREEN"cmd %d\n"NC, i);
@@ -40,8 +37,8 @@ void	ft_display_tab_cmd(t_data *data)
 		}
 		printf("arg[%d], %s\n", j, data->cmd[i]->cmd_args[j]);
 		printf("in : %d, out : %d, more redir ? : %p\n", data->cmd[i]->fd_in, data->cmd[i]->fd_out, data->cmd[i]->list_files);
-		// if (data->cmd[i]->list_files)
-		// 	ft_print_redir_files(data->cmd[i]->list_files);
+		if (data->cmd[i]->list_files)
+			ft_print_redir_files(data->cmd[i]->list_files);
 		printf("\n");
 		i++;
 	}

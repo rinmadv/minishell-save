@@ -71,14 +71,15 @@ int	ft_fill_cmd_redirs_files(t_cmd *cmd, t_list *list)
 		curr_tok = (t_token *)list->content;
 		while (curr_tok->empty_node)
 		{
+			// si join = false --> ambigious = true
 			list = list->next;
 			curr_tok = (t_token *)list->content;
 		}
+		//si ambigious = tru -> fonc ambigious, sinon : (reprendre à redir open
 		curr_tok->redir_file = true;
 		redir->filename = strdup(curr_tok->string);
 		if (!redir->filename)
 			return (MEMORY_ERROR_NB);
-		redir->filename = NULL;
 		redir->open = false;
 		redir->redirect = false;
 		new = ft_lstnew((void *)redir);
@@ -95,7 +96,5 @@ int	ft_fill_cmd_redirs(t_cmd *cmd, t_data *data, t_list *list)
 		|| ft_fill_cmd_redirs_pipe_out(cmd, data)
 		|| ft_fill_cmd_redirs_files(cmd, list))
 		return (MEMORY_ERROR_NB);
-	if (cmd->list_files)
-		ft_print_redir_files(cmd->list_files);
 	return (FUNCTION_SUCCESS);
 }

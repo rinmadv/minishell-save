@@ -37,7 +37,7 @@ int	ft_fill_cmd_fill_tab_args(t_cmd *cmd, t_list *list, int nb_args)
 	curr_token = (t_token *)list->content;
 	while (i < nb_args)
 	{
-		if (curr_token->type == type_word && !curr_token->redir_file)
+		if (curr_token->type == type_word && !curr_token->empty_node && !curr_token->redir_file)
 		{
 			cmd->cmd_args[i] = ft_strdup(curr_token->string);
 			if (!cmd->cmd_args[i])

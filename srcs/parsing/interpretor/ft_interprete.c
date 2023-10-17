@@ -47,7 +47,7 @@ int	ft_fill_tab_cmd(t_data *data, t_list *list)
 	curr_token = (t_token *)list->content;
 	while (data->current_cmd < data->nb_command)
 	{
-		printf("current token : %s\n", curr_token->string);
+		// printf("current token : %s\n", curr_token->string);
 		if (ft_init_cmd(data, data->current_cmd)
 			|| ft_fill_cmd(data->cmd[data->current_cmd], list, data))
 			return (MEMORY_ERROR_NB);
@@ -74,7 +74,7 @@ int	ft_interprete(t_info *info, t_data *data)
 		return (printf("LINE IS EMPTY\n"), LINE_IS_EMPTY);
 	}
 	ft_count_cmd(info->tokens, data);
-	printf("nb cmd : %d\n", data->nb_command);
+	// printf("nb cmd : %d\n", data->nb_command);
 	if (ft_init_tab_cmd(data) != FUNCTION_SUCCESS)
 		return (MEMORY_ERROR_NB);
 	if (ft_fill_tab_cmd(data, info->tokens))

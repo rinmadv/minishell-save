@@ -90,6 +90,7 @@ typedef enum e_builtin
 	cmd_cd,
 	cmd_pwd,
 	cmd_export,
+	cmd_export_print,
 	cmd_unset,
 	cmd_env,
 	cmd_exit,
@@ -103,6 +104,7 @@ typedef enum e_filetype
 	file_to,
 	heredoc_,
 	append_,
+	ambiguous,
 }			t_filetype;
 
 typedef struct s_files

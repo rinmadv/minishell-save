@@ -34,8 +34,11 @@ int	ft_expand_val_split(t_list *list, char *env_val)
 	if (!splited)
 		return (MEMORY_ERROR_NB);
 	current_token = list->content;
-	current_token->empty_node = true;
-	i = 0;
+	current_token->expand = true; // a checker
+	current_token->string = splited[0];
+	if (splited[1])
+		current_token->join_with_next = true;
+	i = 1;
 	while (splited && splited[i])
 	{
 		if (splited[i + 1] || current_token->join_with_next)
@@ -70,9 +73,6 @@ int	ft_expand_val(t_list *list, t_envlist *env)
 			return (MEMORY_ERROR_NB);
 	}
 	else
-	{
-		curr_token->string = NULL; //a delete apres, juste pour pas derreurs
 		ft_expand_val_split(list, env->val); //add verif
-	}
 	return (FUNCTION_SUCCESS);
 }
