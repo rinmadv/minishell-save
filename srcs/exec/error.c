@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: madavid <madavid@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/18 09:56:33 by lmarchai          #+#    #+#             */
-/*   Updated: 2023/09/29 15:57:48 by madavid          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "minishell.h"
 #include "minishell_louis.h"
@@ -26,7 +15,7 @@ void	error_management(t_cmd *cmd, char *str, int exit_val)
 
 void	error_dup2(void)
 {
-	printf("error dup2");
+	printf("erno : %sn",strerror(errno));
 	exit(1);
 }
 
