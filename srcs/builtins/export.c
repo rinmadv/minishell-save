@@ -1,48 +1,63 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   export.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: madavid <madavid@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/14 19:03:25 by madavid           #+#    #+#             */
-/*   Updated: 2023/09/29 15:57:48 by madavid          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "minishell.h"
 #include "minishell_louis.h"
 
-// la fonction va pas car je dois checker si la variable existe pas deja et aussi changer ses settings, 
-// si "export OMG" mais que omg existe deja et quon lui reassigne aucune valeur, on necrase pas sa valeur
-// si "export OMG=" la on met aucune valeur (mais elle reste dans lenv, parce que ca va juste bzero mon char * ou malloc size of char  *1 = \0)
-// penser a bien checker les flags
-// attention !!!! je peux donner plusieurs arg a export ; ex = export hihi bla blu
-
-int	export(t_envlist **env, char *line)
-{
-	t_envlist	*new;
-
-	new = ft_new_envvar(line);
-	if (!new)
-		return (-1);
-	if (!(*env))
-		*env = new;
-	else
-		ft_lst_env_add_back(env, new); // checker si pb ?
-	return (0);
-}
-// il faut add un algo de tri pour le display trie
-
-void	display_export(t_envlist *env)
+t_envlist *ft_key_exist(t_envlist *env, char *new_key)
 {
 	while (env)
 	{
-		if (MASK_EXPORT & env->flag) // si different de 0
-			ft_dprintf(STDOUT_FILENO, "export %s\"=%s\"\n", env->key, env->val);
+		if (strcmp(env->key, new_key) == 0)
+			return (env);
 		env = env->next;
 	}
+	return (NULL);
 }
 
-// export qq chose
-// avec val ou pas
+void	ft_update_curr(t_envlist *new, t_envlist *curr)
+{
+	if (new->val)
+	{
+		if (curr->val)
+			free (curr->val);
+		curr->val = new->val;
+		curr->flag = MASK_ENV;
+		new->val = NULL;
+	}
+	free((void *)new->key);
+	new->key = NULL;
+	free(new);
+}
+
+int	export_single(t_envlist **env, char *line)
+{
+	t_envlist	*new;
+	t_envlist	*temp;
+	t_envlist	*curr;
+
+	temp = *env;
+	new = ft_new_envvar(line);
+	if (!new)
+		return (MEMORY_ERROR_NB);
+	if (!(*env))
+		*env = new;
+	curr = ft_key_exist(*env, (char *)new->key);
+	if (curr)
+		ft_update_curr(new, curr);
+	else
+		ft_lst_env_add_back(env, new);
+	(*env) = temp;
+	return (0);
+}
+
+int	export(t_envlist **env, char **tab)
+{
+	int	i;
+
+	i = 1;
+	while (tab[i])
+	{
+		export_single(env, tab[i]);//add verif
+		i++;
+	}
+	return (FUNCTION_SUCCESS);
+}

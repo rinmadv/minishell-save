@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_new_envvar.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: madavid <madavid@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/15 12:08:58 by madavid           #+#    #+#             */
-/*   Updated: 2023/09/29 15:57:48 by madavid          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "minishell.h"
 #include "minishell_louis.h"
@@ -27,7 +16,7 @@ t_envlist	*ft_new_envvar(char *line)
 		val = NULL;
 	else
 	{
-		val = ft_get_val(&line[sep + 1]);
+		val = ft_get_val(&line[sep + 1]);// attention diff entre pas de val et val = 0
 		if (!val)
 			return (NULL);
 	}

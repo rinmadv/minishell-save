@@ -1,15 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: madavid <madavid@student.42.fr>            +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/11/20 21:49:59 by madavid           #+#    #+#              #
-#    Updated: 2023/09/22 17:11:24 by madavid          ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME = libft.a
 
 CC = cc
@@ -39,6 +27,7 @@ SRCS_FILES = 	memory/ft_bzero.c \
 				strings/ft_strdup.c \
 				strings/ft_substr.c \
 				strings/ft_strjoin.c \
+				strings/ft_strjoin_ms.c \
 				strings/ft_strtrim.c \
 				strings/ft_split.c \
 				chars/ft_tolower.c \
