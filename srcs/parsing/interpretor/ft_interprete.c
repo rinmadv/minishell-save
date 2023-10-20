@@ -94,7 +94,7 @@ int	ft_fill_tab_cmd(t_data *data, t_list *list)
 	return (FUNCTION_SUCCESS);
 }
 
-int	ft_interprete(t_info *info, t_data *data)
+int	ft_interprete(t_data *data)
 {
 	data->nb_command = 0;
 	// if (ft_check_empty_tokens_list(info->tokens))
@@ -102,11 +102,11 @@ int	ft_interprete(t_info *info, t_data *data)
 	// 	ft_reinit_data(data);
 	// 	return (printf("LINE IS EMPTY\n"), LINE_IS_EMPTY);
 	// }
-	ft_count_cmd(info->tokens, data);
+	ft_count_cmd(data->tokens, data);
 	//printf("nb cmd : %d\n", data->nb_command);
 	if (ft_init_tab_cmd(data) != FUNCTION_SUCCESS)
 		return (MEMORY_ERROR_NB);
-	if (ft_fill_tab_cmd(data, info->tokens))
+	if (ft_fill_tab_cmd(data, data->tokens))
 		return (MEMORY_ERROR_NB);
 	//ft_display_tab_cmd(data);
 	return (0);

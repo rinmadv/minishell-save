@@ -2,13 +2,13 @@
 #include "minishell.h"
 #include "minishell_louis.h"
 
-void	ft_display_lexer(t_info info)
+void	ft_display_lexer(t_data data)
 {
 	t_token	*curr_token;
 
-	while (info.tokens)
+	while (data.tokens)
 	{
-		curr_token = (t_token *)info.tokens->content;
+		curr_token = (t_token *)data.tokens->content;
 		dprintf(STDERR_FILENO, "New	");
 		dprintf(STDERR_FILENO, "str : %s, ", curr_token->string);
 		dprintf(STDERR_FILENO, "          ");
@@ -17,6 +17,6 @@ void	ft_display_lexer(t_info info)
 		dprintf(STDERR_FILENO, "join : %d, ", curr_token->join_with_next);
 		dprintf(STDERR_FILENO, "in quote : %d, ", curr_token->quote);
 		dprintf(STDERR_FILENO, "empty : %d\n", curr_token->empty_node);
-		info.tokens = info.tokens->next;
+		data.tokens = data.tokens->next;
 	}
 }

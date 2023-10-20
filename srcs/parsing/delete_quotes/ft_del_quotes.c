@@ -12,13 +12,13 @@ void	ft_change_join_bool(t_list *prev, t_list *curr)
 		prev_token->join_with_next = false;
 }
 
-int	ft_del_quotes(t_info *info)
+int	ft_del_quotes(t_data *data)
 {
 	t_list	*list;
 	t_token	*curr_tok;
 	t_list	*prev;
 
-	list = info->tokens;
+	list = data->tokens;
 	prev = NULL;
 	while (list)
 	{

@@ -82,13 +82,6 @@ typedef struct s_token
 	bool			redir_file;
 }			t_token;
 
-typedef struct s_info
-{
-	//int		nb_tokens; // a delete
-	//int		current_token; // a delete
-	t_list	*tokens;
-}			t_info;
-
 /* Fin lexer */
 
 
@@ -155,6 +148,7 @@ typedef struct s_data
 	int			nb_command;
 	t_cmd		**cmd; // a sup apres louis
 	t_envlist	*envp;
+	t_list		*tokens;
 	int			exec_val;
 }			t_data;
 
@@ -164,13 +158,7 @@ typedef struct s_data
 
 t_data		*ft_create_data(char **envp);
 void		ft_init_data(t_data *data);
-t_info		*create_info(t_info *info);
-void		ft_init_info(t_info *info);
 void		ft_reinit_data(t_data *data);
-void		ft_reinit_info(t_info *info);
-
-/* news*/
-void		ft_clean_info_bis(t_info **info);
 
 
 /* PROMPT */
@@ -190,18 +178,19 @@ bool		ft_check_syntax_with_tokens(t_list *token);
 bool		ft_check_empty_line(const char	*str, int i);
 
 /* LEXER */
-int	ft_tokenise(const char *input, t_info *info);
+int		ft_tokenise(const char *input, t_data *data);
 char			*get_token_val(const char *str, int *i);
 t_token_type	get_token_type(const char *token);
-void			ft_display_lexer(t_info info);
-int		ft_del_quotes(t_info *info);
+void			ft_display_lexer(t_data data);
+int		ft_del_quotes(t_data *data);
 int		ft_remove_quotes(t_list *list, char quote);
 int		ft_split_quotes(t_list *list);
 int		ft_insert_next_node(int i, t_list *list);
+void	ft_clean_token(t_token *token);
 
 
 /* PARSEUR */
-int		ft_interprete(t_info *info, t_data *data);
+int		ft_interprete(t_data *data);
 void	ft_count_cmd(t_list *list, t_data *data);
 int		ft_init_tab_cmd(t_data *data);
 int		ft_init_cmd(t_data *data, int i);
@@ -231,7 +220,7 @@ bool		ft_is_dollar(char c);
 
 /* Expand */
 int	 ft_detatch_expand(t_list *list, int i);
-int		ft_expand(t_info *info, t_envlist *envp, t_data *data);
+int		ft_expand(t_envlist *envp, t_data *data);
 int		ft_expand_val(t_list *list, t_envlist *env, t_data *data);
 
 /* Join */
@@ -257,7 +246,6 @@ void		ft_clean_string(char **str);
 void		ft_clean_2d_array(void **array, void (*clean_data)(void *));
 void		ft_clean_2d_array_struct(void ***array, void (*clean_data)(void *));
 void		ft_clean_t_token(t_token **token);
-void		ft_clean_t_info(t_info *info);
 void		ft_clean_t_cmd(t_cmd *cmd);
 void		ft_clean_t_data(t_data *data);
 void		ft_lst_env_delone(t_envlist *lst);

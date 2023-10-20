@@ -1,13 +1,13 @@
 #include "minishell.h"
 #include "minishell_louis.h"
 
-int	ft_expand(t_info *info, t_envlist *envp, t_data *data)
+int	ft_expand(t_envlist *envp, t_data *data)
 {
 	t_list	*list;
 	t_token	*curr_token;
 	int		dollar_loc;
 
-	list = info->tokens;
+	list = data->tokens;
 	dollar_loc = 0;
 	while (list)
 	{
