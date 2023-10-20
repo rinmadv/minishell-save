@@ -18,7 +18,7 @@ int	parsing(t_data *data, const char *input)
 	{
 		if (ft_del_quotes(info) || ft_expand(info, data->envp, data)
 			|| ft_join_nodes(info->tokens) || ft_interprete(info, data))
-			return (ft_clean_info_bis(&info), info = NULL, MEMORY_ERROR_NB); //ici aussi surement reinit data
+			return (ft_clean_info_bis(&info), info = NULL, MEMORY_ERROR_NB);
 	}
 	ft_clean_info_bis(&info);
 	info = NULL;

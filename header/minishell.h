@@ -151,10 +151,10 @@ typedef struct s_envlist
 
 typedef struct s_data
 {
-	int			current_cmd; // a sup apres louis
-	int			nb_command; // a sup apres louis
+	int			current_cmd;
+	int			nb_command;
 	t_cmd		**cmd; // a sup apres louis
-	t_envlist	*envp; // a garder
+	t_envlist	*envp;
 	int			exec_val;
 }			t_data;
 

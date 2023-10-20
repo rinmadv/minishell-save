@@ -13,6 +13,8 @@ void	ft_init_data(t_data *data)
 void	ft_reinit_data(t_data *data)
 {
 	ft_init_data(data);
+	// clean data.cmd
+	
 	// if (data->cmd)
 	//  	ft_clean_2d_array((void **)data->cmd, (void *)ft_clean_t_cmd);
 }
@@ -63,13 +65,14 @@ void	ft_reinit_data(t_data *data)
 
 t_data	*ft_create_data(char **envp)
 {
-	t_data	*const data = malloc(sizeof(t_data));
-
+	t_data	*data;
+	
+	data = malloc(sizeof(t_data));
 	if (!data)
 		return (MEMORY_ERROR_PT);
 	ft_init_data(data);
 	data->envp = ft_get_envp(envp);
 	if (!data->envp)
-		return (MEMORY_ERROR_PT); // attention, la il faudra effacer data // pb differencier err malloc et pas denv
+		return (ft_clean_t_data(data), MEMORY_ERROR_PT);
 	return (data);
 }

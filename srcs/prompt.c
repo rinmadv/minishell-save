@@ -2,17 +2,6 @@
 #include "minishell.h"
 #include "minishell_louis.h"
 
-bool	check_exit(const char *input)
-{
-	if (!input || ft_strncmp(input, "exit", ft_strlen(input) + 1) == 0)// a changer, car ca doit faire partie de lexec
-	{
-		// ft_dprintf(STDIN_FILENO, "exit\n"); mettre ailleurs
-		// clear_history(); //peut etre qu'il faudra le mettre dans le return de prompt car je sais pas si ca va marcher la
-		return (true);
-	}
-	return (false);
-}
-
 int	prompt(t_data *data)
 {
 	const char	*input;
@@ -32,7 +21,7 @@ int	prompt(t_data *data)
 				return (MEMORY_ERROR_NB);
 			}
 			if(cross_array_list(data) == EXIT)
-			 	return (EXIT);
+			 	return (ft_clean_t_data(data), EXIT);
 			ft_reinit_data(data);
 		}
 		else if (!input)
