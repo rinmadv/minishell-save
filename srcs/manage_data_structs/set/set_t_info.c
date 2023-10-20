@@ -4,8 +4,8 @@
 
 void	ft_init_info(t_info *info)
 {
-	info->nb_tokens = 0; // a delete
-	info->current_token = 0; // a delete
+	//info->nb_tokens = 0; // a delete
+	//info->current_token = 0; // a delete
 	info->tokens = NULL;
 }
 void	ft_reinit_info(t_info *info)
@@ -59,7 +59,7 @@ void	ft_clean_info_bis(t_info **info)
 		free((*info));
 		*info = NULL;
 	}
-	//printf("t_info cleaned\n");
+	printf("t_info cleaned\n");
 }
 
 /* Fin */
@@ -68,7 +68,7 @@ t_info	*create_info(t_info *info)
 {
 	info = malloc(sizeof(t_info));
 	if (!info)
-		return (MEMORY_ERROR_PT); // la il faudra supprimer data
+		return (MEMORY_ERROR_PT);
 	ft_init_info(info);
 	return (info);
 }

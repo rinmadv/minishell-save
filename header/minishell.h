@@ -84,8 +84,8 @@ typedef struct s_token
 
 typedef struct s_info
 {
-	int		nb_tokens; // a delete
-	int		current_token; // a delete
+	//int		nb_tokens; // a delete
+	//int		current_token; // a delete
 	t_list	*tokens;
 }			t_info;
 
