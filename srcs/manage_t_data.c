@@ -6,21 +6,44 @@ void	ft_init_data(t_data *data)
 {
 	data->current_cmd = 0;
 	data->nb_command = 0;
-	data->exec_val = 0;
 	data->cmd = NULL;
 	data->tokens = NULL;
 }
 
-void	ft_reinit_data(t_data *data)
+void	ft_clean_cmd(t_cmd *cmd)
 {
-	ft_init_data(data);
-	// clean data.cmd
-	
-	// if (data->cmd)
-	//  	ft_clean_2d_array((void **)data->cmd, (void *)ft_clean_t_cmd);
+	if (cmd->cmd_args)
+	{
+		ft_free_2d_array(cmd->cmd_args);
+		cmd->cmd_args = NULL;
+	}
+	if (cmd->path_cmd)
+	{
+		ft_free_2d_array(cmd->path_cmd);
+		cmd->path_cmd = NULL;
+	}
+	if (cmd->list_files)
+		ft_lstclear(&cmd->list_files, (void *)ft_clean_t_file);
 }
 
-
+void	ft_reinit_data(t_data *data)
+{
+	int	i;
+	if (data->cmd)
+	{
+		i = 0;
+		while (i < data->nb_command)
+		{
+			ft_clean_cmd(data->cmd[i]);
+			data->cmd[i] = NULL;
+			i++;
+		}
+	}
+	if (data->tokens)
+		ft_lstclear(&(data)->tokens, (void *)ft_clean_token);
+	ft_init_data(data);
+	printf("data reinit\n");
+}
 
 void	ft_clean_t_data(t_data *data)
 {
@@ -29,6 +52,7 @@ void	ft_clean_t_data(t_data *data)
 	ft_reinit_data(data);
 	if (data->envp)
 		ft_lst_env_clear(&data->envp);
+	data->envp = NULL;
 	free(data);
 	data = NULL;
 	printf("t_data cleaned\n");
@@ -42,6 +66,7 @@ t_data	*ft_create_data(char **envp)
 	if (!data)
 		return (MEMORY_ERROR_PT);
 	ft_init_data(data);
+	data->exec_val = 0;
 	data->envp = ft_get_envp(envp);
 	if (!data->envp)
 		return (ft_clean_t_data(data), MEMORY_ERROR_PT);

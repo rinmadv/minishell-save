@@ -202,6 +202,7 @@ int		ft_fill_cmd(t_cmd *cmd, t_list *list, t_data *data);
 // int		ft_fill_cmd_no_agrs(t_cmd *cmd);
 int		ft_fill_cmd_redirs(t_cmd *cmd, t_data *data, t_list *list);
 int		ft_fill_cmd_redirs_files(t_cmd *cmd, t_list *list);
+void	ft_clean_t_file(t_files *file);
 int		ft_fill_cmd_count_args(t_list *list);
 int		ft_fill_cmd_init_tab_args(int nb_args, t_cmd *cmd);
 int		ft_fill_cmd_fill_tab_args(t_cmd *cmd, t_list *list, int nb_args);

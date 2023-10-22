@@ -1,6 +1,20 @@
 #include "minishell.h"
 #include "minishell_louis.h"
 
+void	ft_clean_t_file(t_files *file)
+{
+	if (file)
+	{
+		if (file->filename)
+		{
+			free(file->filename);
+			file->filename = NULL;
+		}
+		free(file);
+		file = NULL;
+	}
+}
+
 int	ft_fill_cmd_redirs_pipe_in(t_cmd *cmd, t_data *data)
 {
 	t_files	*redirs;
