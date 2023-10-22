@@ -10,7 +10,7 @@ int	prompt(t_data *data)
 	while (1)
 	{
 		handle_signals_prompt();
-		input = readline(YELLOW"aristoshell$ "NC);
+		input = readline(PROMPT_COLOUR"aristoshell$ "PROMPT_RESET);
 		if (input && input[0] != 0)
 		{
 			add_history(input);

@@ -98,7 +98,7 @@ int	ft_fill_cmd_redirs_files(t_cmd *cmd, t_list *list)
 		if (redir->filetype != ambiguous)
 		{
 			curr_tok->redir_file = true;
-			redir->filename = strdup(curr_tok->string);
+			redir->filename = ft_strdup(curr_tok->string);
 			if (!redir->filename)
 				return (free(redir), redir = NULL, MEMORY_ERR_NB);
 		}

@@ -6,7 +6,7 @@ t_envlist *ft_key_exist(t_envlist *env, char *new_key)
 {
 	while (env)
 	{
-		if (strcmp(env->key, new_key) == 0)
+		if (strcmp(env->key, new_key) == 0) //interdite
 			return (env);
 		env = env->next;
 	}
