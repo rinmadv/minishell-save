@@ -31,7 +31,7 @@ int	ft_remove_quotes(t_list *list, char quote)
 		current_token->quote = simple_q;
 		curr_word = ft_strtrim(current_token->string, "'");
 	}
-	if (!current_token->string)
+	if (!curr_word)
 		return (MEMORY_ERROR_NB);
 	free(current_token->string);
 	current_token->string = curr_word;
