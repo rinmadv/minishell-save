@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marine <marine@student.42.fr>              +#+  +:+       +#+        */
+/*   By: madavid <madavid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 22:15:18 by lmarchai          #+#    #+#             */
-/*   Updated: 2023/10/20 14:37:33 by marine           ###   ########.fr       */
+/*   Updated: 2023/10/22 15:36:37 by madavid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	sighandler(int signum)
 	{
 		printf("\n");
 		rl_on_new_line();
-        //rl_replace_line("", 0);
+        rl_replace_line("", 0);
         rl_redisplay();
 	}
 	g_glb = 1;

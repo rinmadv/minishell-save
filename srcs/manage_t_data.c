@@ -14,6 +14,7 @@ void	ft_clean_cmd(t_cmd *cmd)
 {
 	if (cmd->cmd_args)
 	{
+		printf("Cleaning cmd args\n");
 		ft_free_2d_array(cmd->cmd_args);
 		cmd->cmd_args = NULL;
 	}
@@ -24,6 +25,7 @@ void	ft_clean_cmd(t_cmd *cmd)
 	}
 	if (cmd->list_files)
 		ft_lstclear(&cmd->list_files, (void *)ft_clean_t_file);
+	free(cmd);
 }
 
 void	ft_reinit_data(t_data *data)
@@ -38,6 +40,8 @@ void	ft_reinit_data(t_data *data)
 			data->cmd[i] = NULL;
 			i++;
 		}
+		free(data->cmd);
+		data->cmd = NULL;
 	}
 	if (data->tokens)
 		ft_lstclear(&(data)->tokens, (void *)ft_clean_token);
