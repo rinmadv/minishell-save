@@ -24,8 +24,6 @@ int	ft_need_detach(char *str)
 	return (0);
 }
 
-
-
 int	ft_suppress_dollar(t_token *curr_token)
 {
 	char	*truncate;

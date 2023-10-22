@@ -20,8 +20,8 @@ int	ft_expand(t_envlist *envp, t_data *data)
 			{
 				if (ft_detatch_expand(list, dollar_loc) != FUNCTION_SUCCESS)
 					return (MEMORY_ERROR_NB);
-				if (curr_token->expand) //encore utile ?
-					ft_expand_val(list, envp, data); // attention checker le retour
+				if (curr_token->expand /* encore utile ?*/ && ft_expand_val(list, envp, data)) 
+					return (MEMORY_ERROR_NB);
 			}
 		}
 		list = list->next;

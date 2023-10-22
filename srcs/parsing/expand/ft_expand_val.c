@@ -1,6 +1,21 @@
 #include "minishell.h"
 #include "minishell_louis.h"
 
+void	ft_free_2d_array(char **two_di_array)
+{
+	int	i;
+
+	i = 0;
+	while (two_di_array[i])
+	{
+		free(two_di_array[i]);
+		two_di_array[i] = NULL;
+		i++;
+	}
+	free(two_di_array);
+	two_di_array = NULL;
+}
+
 int	ft_insert_expand_splitted(t_list *list, char *new_word, bool join_next)
 {
 	t_token	*new_token;
@@ -18,7 +33,7 @@ int	ft_insert_expand_splitted(t_list *list, char *new_word, bool join_next)
 	new_token->redir_file = false;
 	new = ft_lstnew((void *)new_token);
 	if (!new)
-		return (MEMORY_ERROR_NB);
+		return (free(new_token), new_token = NULL, MEMORY_ERROR_NB);
 	new->next = list->next;
 	list->next = new;
 	return (FUNCTION_SUCCESS);
@@ -42,7 +57,8 @@ int	ft_expand_val_split(t_list *list, char *env_val)
 	i = 1;
 	while (splited && splited[i])
 	{
-		ft_insert_expand_splitted(list, splited[i], false);
+		if (ft_insert_expand_splitted(list, splited[i], false))
+			return (ft_free_2d_array(splited), splited = NULL, MEMORY_ERROR_NB);
 		i++;
 		list = list->next;
 	}
@@ -60,7 +76,13 @@ int	ft_expand_val(t_list *list, t_envlist *env, t_data *data)
 	if (curr_token->string[0] == '?')
 	{
 		free(curr_token->string);
-		curr_token->string = ft_strdup(ft_itoa(data->exec_val));//verif retour itoa + ft_strdup en deux fois
+		curr_token->string = NULL;
+		char *nb = ft_itoa(data->exec_val);
+		if (!nb)
+			return (MEMORY_ERROR_NB);
+		curr_token->string = ft_strdup(nb);//verif retour itoa + ft_strdup en deux fois
+		if (!curr_token->string)
+			return(free(nb), nb = NULL, MEMORY_ERROR_NB);
 	}
 	else
 	{
@@ -68,6 +90,7 @@ int	ft_expand_val(t_list *list, t_envlist *env, t_data *data)
 		while (env && ft_strncmp(curr_token->string, (const char *)env->key, len))
 			env = env->next;
 		free(curr_token->string); //maybe invalide free
+		curr_token->string = NULL;
 		if (!env)
 		{
 			curr_token->empty_node = true;
@@ -79,8 +102,8 @@ int	ft_expand_val(t_list *list, t_envlist *env, t_data *data)
 			if (!curr_token->string)
 				return (MEMORY_ERROR_NB);
 		}
-		else
-			ft_expand_val_split(list, env->val); //add verif
+		else if (ft_expand_val_split(list, env->val))
+			return (MEMORY_ERROR_NB);
 	}
 	return (FUNCTION_SUCCESS);
 }

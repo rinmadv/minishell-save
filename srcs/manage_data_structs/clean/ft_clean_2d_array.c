@@ -17,4 +17,5 @@ void	ft_clean_2d_array(void **array, void (*clean_data)(void *))
 		i++;
 	}
 	free(array);
+	array = NULL;
 }
