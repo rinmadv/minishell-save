@@ -22,7 +22,7 @@
 # define D_ER_EXPAND "minishell: export: `%s': not a valid identifier\n"
 # define FUNCTION_SUCCESS	0
 # define EXIT				1
-# define MEMORY_ERR_NB	2
+# define MEMORY_ERR_NB		2
 # define MEMORY_ERROR_PT	NULL
 # define SYNTAX_QUOTE_ERROR	3
 # define SYNTAX_PIPE_ERROR	4

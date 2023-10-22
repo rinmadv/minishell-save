@@ -19,7 +19,7 @@ int	parsing(t_data *data, const char *input)
 		}
 	}
 	ft_lstclear(&(data)->tokens, (void *)ft_clean_token);
-	printf("tokens cleaned\n");
+	//printf("tokens cleaned\n");
 	data->tokens = NULL;
 	return (FUNCTION_SUCCESS);
 }

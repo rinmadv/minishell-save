@@ -77,7 +77,7 @@ char	*get_cmd(char **paths, char *cmd)
 		return (NULL);
 	if (!paths)
 		return (nopath(cmd));
-	if (cmd[0] == '/')
+	if (ft_strchr(cmd, '/'))
 	{
 		if (access(cmd, F_OK | X_OK) == 0)
 			return (cmd);
