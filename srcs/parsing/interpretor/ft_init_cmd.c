@@ -5,7 +5,7 @@ int	ft_init_cmd(t_data *data, int i)
 {
 	data->cmd[i] = malloc(sizeof(t_cmd));
 	if (!data->cmd[i])
-		return (MEMORY_ERROR_NB); // attention check retour de cette fonction avant (previously on retournais -1) + effacer ce qui a ete alloue avant
+		return (MEMORY_ERROR_NB);
 	data->cmd[i]->pid = -1;
 	data->cmd[i]->cmd_args = NULL;
 	data->cmd[i]->cmd_type = no;

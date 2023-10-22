@@ -1,21 +1,6 @@
 #include "minishell.h"
 #include "minishell_louis.h"
 
-void	ft_free_2d_array(char **two_di_array)
-{
-	int	i;
-
-	i = 0;
-	while (two_di_array[i])
-	{
-		free(two_di_array[i]);
-		two_di_array[i] = NULL;
-		i++;
-	}
-	free(two_di_array);
-	two_di_array = NULL;
-}
-
 int	ft_insert_expand_splitted(t_list *list, char *new_word, bool join_next)
 {
 	t_token	*new_token;
@@ -80,7 +65,7 @@ int	ft_expand_val(t_list *list, t_envlist *env, t_data *data)
 		char *nb = ft_itoa(data->exec_val);
 		if (!nb)
 			return (MEMORY_ERROR_NB);
-		curr_token->string = ft_strdup(nb);//verif retour itoa + ft_strdup en deux fois
+		curr_token->string = ft_strdup(nb);
 		if (!curr_token->string)
 			return(free(nb), nb = NULL, MEMORY_ERROR_NB);
 	}

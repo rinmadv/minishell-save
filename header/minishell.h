@@ -154,6 +154,10 @@ typedef struct s_data
 
 //fonctions
 //hihi
+
+void	ft_free_2d_array(char **two_di_array);
+
+
 /* Create and Init */
 
 t_data		*ft_create_data(char **envp);
@@ -253,7 +257,7 @@ void		ft_lst_env_clear(t_envlist **lst);
 
 /* Built-in */
 void		display_env(t_envlist *env);
-int	unset(t_envlist **env, char **key);
+int			unset(t_envlist **env, char **key);
 int			export(t_envlist **env, char **tab);
 int			display_export(t_envlist *env);
 void		ft_quick_sort(char ***tab, int low, int high);

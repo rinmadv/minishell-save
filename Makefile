@@ -1,6 +1,7 @@
 SRCS_FILES	= 	minishell.c \
 				manage_t_data.c \
 				prompt.c \
+				utils.c \
 				errors/ft_errors.c \
 				manage_data_structs/clean/ft_clean_string.c \
 				manage_data_structs/clean/ft_clean_t_cmd.c \

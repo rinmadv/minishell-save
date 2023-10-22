@@ -17,7 +17,7 @@ int	ft_fill_cmd_redirs_pipe_in(t_cmd *cmd, t_data *data)
 		redirs->redirect = false;
 		new = ft_lstnew((void *)redirs);
 		if (!new)
-			return (MEMORY_ERROR_NB);
+			return (free(redirs), redirs = NULL, MEMORY_ERROR_NB);
 		ft_lstadd_back(&cmd->list_files, new);
 	}
 	return (FUNCTION_SUCCESS);
@@ -39,7 +39,7 @@ int	ft_fill_cmd_redirs_pipe_out(t_cmd *cmd, t_data *data)
 		redirs->redirect = false;
 		new = ft_lstnew((void *)redirs);
 		if (!new)
-			return (MEMORY_ERROR_NB);
+			return (free(redirs), redirs = NULL, MEMORY_ERROR_NB);
 		ft_lstadd_back(&cmd->list_files, new);
 	}
 	return (FUNCTION_SUCCESS);
@@ -86,13 +86,13 @@ int	ft_fill_cmd_redirs_files(t_cmd *cmd, t_list *list)
 			curr_tok->redir_file = true;
 			redir->filename = strdup(curr_tok->string);
 			if (!redir->filename)
-				return (MEMORY_ERROR_NB);
+				return (free(redir), redir = NULL, MEMORY_ERROR_NB);
 		}
 		redir->open = false;
 		redir->redirect = false;
 		new = ft_lstnew((void *)redir);
 		if (!new)
-			return (MEMORY_ERROR_NB);
+			return (free(redir->filename), redir->filename = NULL, free(redir), redir = NULL, MEMORY_ERROR_NB);
 		ft_lstadd_back(&cmd->list_files, new);
 	}
 	return (FUNCTION_SUCCESS);

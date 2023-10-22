@@ -19,8 +19,16 @@ int	ft_init_token(t_token *new_token, const char *input, int *i)
 
 void	ft_clean_token(t_token *token)
 {
-	free(token->string);
-	free(token);
+	if (token)
+	{
+		if (token->string)
+		{
+			free(token->string);
+			token->string = NULL;
+		}
+		free(token);
+		token = NULL;
+	}
 }
 
 int	ft_tokenise(const char *input, t_data *data)

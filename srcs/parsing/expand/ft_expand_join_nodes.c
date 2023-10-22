@@ -35,7 +35,7 @@ int	ft_join_nodes(t_list *list)
 			if (next_node)
 			{
 				//printf("On join : %s avec %s\n", current_token->string, next_token->string);
-				join = ft_strjoin_ms(current_token->string, next_token->string);
+				join = ft_strjoin_ms(current_token->string, next_token->string); //attention ici on peut avoir des pb... avec le retour de func de join ms
 				if (!join)
 					return (MEMORY_ERROR_NB);
 				free (current_token->string);
