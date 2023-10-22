@@ -37,7 +37,7 @@ int	export_single(t_envlist **env, char *line)
 	temp = *env;
 	new = ft_new_envvar(line);
 	if (!new)
-		return (MEMORY_ERROR_NB);
+		return (MEMORY_ERR_NB);
 	if (!(*env))
 		*env = new;
 	curr = ft_key_exist(*env, (char *)new->key);

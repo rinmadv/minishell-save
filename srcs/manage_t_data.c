@@ -31,6 +31,7 @@ void	ft_clean_cmd(t_cmd *cmd)
 void	ft_reinit_data(t_data *data)
 {
 	int	i;
+
 	if (data->cmd)
 	{
 		i = 0;
@@ -65,7 +66,7 @@ void	ft_clean_t_data(t_data *data)
 t_data	*ft_create_data(char **envp)
 {
 	t_data	*data;
-	
+
 	data = malloc(sizeof(t_data));
 	if (!data)
 		return (MEMORY_ERROR_PT);
@@ -105,7 +106,6 @@ t_data	*ft_create_data(char **envp)
 // 	tab = NULL;
 // } //pas du tout fini mais flemme 
 
-
 // void	ft_clean_data_bis(t_data *data)
 // {
 // 	if ((data))
@@ -118,5 +118,3 @@ t_data	*ft_create_data(char **envp)
 // }
 
 /* fin*/
-
-

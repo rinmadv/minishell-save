@@ -3,10 +3,6 @@ SRCS_FILES	= 	minishell.c \
 				prompt.c \
 				utils.c \
 				errors/ft_errors.c \
-				manage_data_structs/clean/ft_clean_string.c \
-				manage_data_structs/clean/ft_clean_t_cmd.c \
-				manage_data_structs/clean/ft_clean_2d_array.c \
-				manage_data_structs/clean/ft_clean_2d_array_struct.c \
 				parsing/bools/ft_check_empty_line.c \
 				parsing/bools/ft_is_cmd_separator.c \
 				parsing/bools/ft_is_dollar.c \

@@ -19,9 +19,9 @@ int	ft_expand(t_envlist *envp, t_data *data)
 			if (dollar_loc >= 0 && !(curr_token->string[0] == '$' && (curr_token->string[1] == 0 || curr_token->string[1] == '$')))
 			{
 				if (ft_detatch_expand(list, dollar_loc) != FUNCTION_SUCCESS)
-					return (MEMORY_ERROR_NB);
+					return (MEMORY_ERR_NB);
 				if (curr_token->expand /* encore utile ?*/ && ft_expand_val(list, envp, data)) 
-					return (MEMORY_ERROR_NB);
+					return (MEMORY_ERR_NB);
 			}
 		}
 		list = list->next;

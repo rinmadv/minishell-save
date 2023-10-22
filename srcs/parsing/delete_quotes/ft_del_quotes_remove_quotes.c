@@ -32,7 +32,7 @@ int	ft_remove_quotes(t_list *list, char quote)
 		curr_word = ft_strtrim(current_token->string, "'");
 	}
 	if (!curr_word)
-		return (MEMORY_ERROR_NB);
+		return (MEMORY_ERR_NB);
 	free(current_token->string);
 	current_token->string = curr_word;
 	return (FUNCTION_SUCCESS);

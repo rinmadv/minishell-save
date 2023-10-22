@@ -33,10 +33,10 @@ int	ft_insert_next_node(int i, t_list *list)
 	curr_tok = (t_token *)list->content;
 	nw_word = ft_substr(curr_tok->string, i, ft_strlen(curr_tok->string));
 	if (!nw_word)
-		return (MEMORY_ERROR_NB);
+		return (MEMORY_ERR_NB);
 	nw_tok = malloc(sizeof(t_token));
 	if (!nw_tok)
-		return (free(nw_word), nw_word = NULL, MEMORY_ERROR_NB);
+		return (free(nw_word), nw_word = NULL, MEMORY_ERR_NB);
 	nw_tok->string = nw_word;
 	nw_tok->type = type_word;
 	nw_tok->expand = false;
@@ -68,10 +68,10 @@ int	ft_detach_quotes(int i, t_list *list, char quote)
 			return (FUNCTION_SUCCESS);
 	}
 	if (ft_insert_next_node(i, list) != FUNCTION_SUCCESS)
-		return (MEMORY_ERROR_NB);
+		return (MEMORY_ERR_NB);
 	curr_word = ft_change_current_str(current_token, i, quote);
 	if (!curr_word)
-		return (MEMORY_ERROR_NB);
+		return (MEMORY_ERR_NB);
 	free(current_token->string);
 	current_token->string = curr_word;
 	return (FUNCTION_SUCCESS);
@@ -92,7 +92,7 @@ int	ft_split_quotes(t_list *list)
 		if (quote)
 		{
 			if (ft_detach_quotes(i, list, quote))
-				return (MEMORY_ERROR_NB);
+				return (MEMORY_ERR_NB);
 			return (FUNCTION_SUCCESS);
 		}
 		i++;

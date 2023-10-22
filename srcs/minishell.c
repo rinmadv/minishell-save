@@ -14,8 +14,8 @@ int	main(int argc, char **argv, char **envp)
 	data = NULL;
 	data = ft_create_data(envp);
 	if (!data)
-		return (ft_error(MEMORY_ERROR_NB, NULL), MEMORY_ERROR_NB);
-	if (prompt(data) == MEMORY_ERROR_NB)
-		return (ft_clean_t_data(data), MEMORY_ERROR_NB);
+		return (ft_error(MEMORY_ERR_NB, NULL), MEMORY_ERR_NB);
+	if (prompt(data) == MEMORY_ERR_NB)
+		return (ft_clean_t_data(data), MEMORY_ERR_NB);
 	return (0);
 }

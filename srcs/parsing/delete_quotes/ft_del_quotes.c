@@ -27,12 +27,12 @@ int	ft_del_quotes(t_data *data)
 		if (curr_tok->type == type_word)
 		{
 			if (ft_split_quotes(list) != FUNCTION_SUCCESS)
-				return (MEMORY_ERROR_NB);
+				return (MEMORY_ERR_NB);
 			if (curr_tok->quote)
 			{
 				check = ft_remove_quotes(list, curr_tok->string[0]);
-				if (check == MEMORY_ERROR_NB)
-					return (MEMORY_ERROR_NB);
+				if (check == MEMORY_ERR_NB)
+					return (MEMORY_ERR_NB);
 				if (check == LINE_IS_EMPTY)
 				{
 					if (prev)

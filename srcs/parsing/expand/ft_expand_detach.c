@@ -33,7 +33,7 @@ int	ft_suppress_dollar(t_token *curr_token)
 		curr_token->expand = true;
 		truncate = ft_strtrim(curr_token->string, "$");
 		if (!truncate)
-			return (MEMORY_ERROR_NB);
+			return (MEMORY_ERR_NB);
 		free(curr_token->string);
 		curr_token->string = truncate;
 		return (FUNCTION_SUCCESS);
@@ -62,7 +62,7 @@ int	ft_detatch_expand(t_list *list, int i)
 	if (i) //si on doit détacher qq chose
 	{
 		if (ft_insert_next_node(i, list) != FUNCTION_SUCCESS)
-			return (MEMORY_ERROR_NB);
+			return (MEMORY_ERR_NB);
 		if (current_token->join_with_next)
 		{
 			next = (t_token *)list->next->content;
@@ -71,11 +71,11 @@ int	ft_detatch_expand(t_list *list, int i)
 		current_token->join_with_next = true; //important de le garder apres
 		truncate = ft_substr(current_token->string, 0, i);
 		if (!truncate)
-			return (MEMORY_ERROR_NB);
+			return (MEMORY_ERR_NB);
 		free(current_token->string);
 		current_token->string = truncate;
 	}
 	if (ft_suppress_dollar(current_token))
-		return (MEMORY_ERROR_NB);
+		return (MEMORY_ERR_NB);
 	return (FUNCTION_SUCCESS);
 }

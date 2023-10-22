@@ -66,7 +66,7 @@ int	display_export(t_envlist *env)
 	size = ft_get_size_export(env);
 	tab = ft_get_copy_export(env, size);
 	if (!tab)
-		return (MEMORY_ERROR_NB);
+		return (MEMORY_ERR_NB);
 	ft_quick_sort(tab, 0, size - 1);
 	while (i < size)
 	{

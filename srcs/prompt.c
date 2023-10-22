@@ -18,13 +18,13 @@ int	prompt(t_data *data)
 			free((void *)input);
 			input = NULL;
 			if (check_error)
-				return (clear_history(), ft_clean_t_data(data), MEMORY_ERROR_NB);
-			if(cross_array_list(data) == EXIT)
-			 	return (clear_history(), ft_clean_t_data(data), EXIT);
+				return (clear_history(), ft_clean_t_data(data), MEMORY_ERR_NB);
+			if (cross_array_list(data) == EXIT)
+				return (clear_history(), ft_clean_t_data(data), EXIT);
 			ft_reinit_data(data);
 		}
 		else if (!input)
-			exit(0);
+			exit (0);
 	}
 	clear_history();
 	return (FUNCTION_SUCCESS);
