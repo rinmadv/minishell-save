@@ -20,5 +20,7 @@ int	ft_error(int err_code, char *arg)
 		ft_dprintf(STDERR_FILENO, D_ER_PERM, arg);
 	else if (err_code == NO_FILEDIR_ERROR)
 		ft_dprintf(STDERR_FILENO, D_ER_NO_FILDIR, arg);
+	else if (err_code == WRONG_ID_EXPORT)
+		ft_dprintf(STDERR_FILENO, D_ER_EXPAND, arg);
 	return (0);
 }

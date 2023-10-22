@@ -19,6 +19,7 @@
 # define D_ER_CMD_NF "minishell: %s: command not found\n"
 # define D_ER_PERM "minishell: %s: Permission denied\n"
 # define D_ER_NO_FILDIR "minishell: %s: No such file or directory\n"
+# define D_ER_EXPAND "minishell: export: `%s': not a valid identifier\n"
 # define FUNCTION_SUCCESS	0
 # define EXIT				1
 # define MEMORY_ERR_NB	2
@@ -31,6 +32,7 @@
 # define NO_FILEDIR_ERROR	8
 # define WRONG_NB_ARG		9
 # define NO_ENV				10
+# define WRONG_ID_EXPORT	11
 # define DOUBLE_QUOTE 		34
 # define SIMPLE_QUOTE 		39
 # define MASK_SET			0x10
