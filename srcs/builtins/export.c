@@ -6,7 +6,7 @@ t_envlist *ft_key_exist(t_envlist *env, char *new_key)
 {
 	while (env)
 	{
-		if (strcmp(env->key, new_key) == 0) //interdite
+		if (ft_strncmp(env->key, new_key, (ft_strlen(new_key) + 1)) == 0)
 			return (env);
 		env = env->next;
 	}
@@ -46,7 +46,7 @@ int	export_single(t_envlist **env, char *line)
 	else
 		ft_lst_env_add_back(env, new);
 	(*env) = temp;
-	return (0);
+	return (FUNCTION_SUCCESS);
 }
 
 int	export(t_envlist **env, char **tab)
@@ -56,7 +56,8 @@ int	export(t_envlist **env, char **tab)
 	i = 1;
 	while (tab[i])
 	{
-		export_single(env, tab[i]);//add verif
+		if (export_single(env, tab[i]))
+			return (MEMORY_ERR_NB);
 		i++;
 	}
 	return (FUNCTION_SUCCESS);
