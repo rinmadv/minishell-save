@@ -93,7 +93,7 @@ int	ft_split_quotes(t_list *list)
 		{
 			if (ft_detach_quotes(i, list, quote))
 				return (MEMORY_ERR_NB);
-			return (FUNCTION_SUCCESS);
+			return (FUNCTION_SUCCESS); // pourrait etre racourci avec return la fonction direct
 		}
 		i++;
 	}

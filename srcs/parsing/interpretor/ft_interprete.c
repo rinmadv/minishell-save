@@ -63,7 +63,8 @@ void	ft_check_builtin(t_cmd	*cmd)
 		else
 			cmd->cmd_type = no;
 	}
-	//printf("builtin : %d\n", cmd->cmd_type);
+	else
+		cmd->cmd_type = no_cmd;
 }
 
 int	ft_fill_tab_cmd(t_data *data, t_list *list)

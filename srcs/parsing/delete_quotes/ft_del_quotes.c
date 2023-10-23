@@ -33,12 +33,6 @@ int	ft_del_quotes(t_data *data)
 				check = ft_remove_quotes(list, curr_tok->string[0]);
 				if (check == MEMORY_ERR_NB)
 					return (MEMORY_ERR_NB);
-				if (check == LINE_IS_EMPTY)
-				{
-					if (prev)
-						ft_change_join_bool(prev, list);
-					curr_tok->empty_node = true;
-				}
 			}
 		}
 		prev = list;

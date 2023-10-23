@@ -110,14 +110,9 @@ int	child_process(t_data *data, t_pipe *pipes, int fd_heredoc)
 		cmd->path_cmd = ft_split(path_temp, ':');
 	else
 		cmd->path_cmd = NULL;
-	if (!cmd->cmd_args)
-	{
-		printf("error_cmd\n");
-		exit(1);
-	}
 	exec = get_cmd(cmd->path_cmd, cmd->cmd_args[0]);
 	execve(exec, cmd->cmd_args, envp);
-	printf("errorcmd\n");
+	ft_error(WRONG_CMD_ARG, cmd->cmd_args[0]);
 	exit(1);
 }
 

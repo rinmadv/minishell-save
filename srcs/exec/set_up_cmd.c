@@ -6,13 +6,13 @@
 /*
 appellera le builtin voulu en fonction de la valeurs dans le champ cmd->type
 de la struct cmd
-*/
-
-void	handle_builtins(t_data *data)
+, */void	handle_builtins(t_data *data)
 {
 	t_cmd	**cmd;
 
 	cmd = data->cmd;
+	if (cmd[data->current_cmd]->cmd_type == no_cmd)
+		return ;
 	if (cmd[data->current_cmd]->cmd_type == cmd_echo)
 		bt_echo(data, data->current_cmd);
 	if (cmd[data->current_cmd]->cmd_type == cmd_cd)
@@ -33,9 +33,7 @@ void	handle_builtins(t_data *data)
 
 /*
 recup la variable d'env PATH
-*/
-
-char	*find_path(char **envp)
+, */char	*find_path(char **envp)
 {
 	if (!envp[0])
 		return (NULL);
@@ -50,9 +48,7 @@ char	*find_path(char **envp)
 
 /*
 si on a aucun path cette fonction est appellee permet de gerer les chemin absolu
-*/
-
-char	*nopath(char *cmd)
+, */char	*nopath(char *cmd)
 {
 	if (cmd[0] == '/')
 	{
@@ -66,22 +62,20 @@ char	*nopath(char *cmd)
 
 /*
 cette fonction join le path et la commande
-*/
-
-char	*get_cmd(char **paths, char *cmd)
+, */char	*get_cmd(char **paths, char *cmd)
 {
 	char	*tmp;
 	char	*to_try;
 
 	if (!cmd)
-		return (NULL);
-	if (!paths)
-		return (nopath(cmd));
+		return (/*printf("1\n"), */NULL);
+	if (!paths)\
+		return (/*printf("2\n"), */nopath(cmd));
 	if (ft_strchr(cmd, '/'))
 	{
 		if (access(cmd, F_OK | X_OK) == 0)
-			return (cmd);
-		return (NULL);
+			return (/*printf("3\n"), */cmd);
+		return (/*printf("4\n"), */cmd);
 	}
 	while (*paths)
 	{
@@ -89,9 +83,9 @@ char	*get_cmd(char **paths, char *cmd)
 		to_try = ft_strjoin(tmp, cmd);
 		free(tmp);
 		if (access(to_try, 0) == 0)
-			return (to_try);
+			return (/*printf("5\n"), */to_try);
 		free(to_try);
 		paths++;
 	}
-	return (NULL);
+	return (/*printf("6\n"), */cmd);
 }

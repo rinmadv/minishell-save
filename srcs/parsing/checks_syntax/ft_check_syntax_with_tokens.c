@@ -14,8 +14,14 @@ int	ft_check_message(t_token *current_node, t_list *token, t_token *next_node, i
 			return (SYNTAX_NEWL_ERROR);
 		else if (next_node->type == type_pipe)
 			return (SYNTAX_PIPE_ERROR);
-		else if (next_node->type != type_word)
-			return (SYNTAX_NEWL_ERROR);
+		else if (next_node->type == type_from)
+			return (SYNTAX_FROM_ERROR);
+		else if (next_node->type == type_heredoc)
+			return (SYNTAX_HERED_ERROR);
+		else if (next_node->type == type_to)
+			return (SYNTAX_TO_ERROR);
+		else if (next_node->type == type_heredoc)
+			return (SYNTAX_APPND_ERROR);
 	}
 	return (FUNCTION_SUCCESS);
 }

@@ -16,6 +16,10 @@
 # define D_ER_SYN_QUOTE "minishell: unclosed quote\n"
 # define D_ER_SYN_PIPE "minishell: syntax error near unexpected token `|'\n"
 # define D_ER_SYN_NL "minishell: syntax error near unexpected token `newline'\n"
+# define D_ER_SYN_FROM "minishell: syntax error near unexpected token `<'\n"
+# define D_ER_SYN_HERED "minishell: syntax error near unexpected token `<<'\n"
+# define D_ER_SYN_TO "minishell: syntax error near unexpected token `>'\n"
+# define D_ER_SYN_APPEND "minishell: syntax error near unexpected token `>>'\n"
 # define D_ER_CMD_NF "minishell: %s: command not found\n"
 # define D_ER_PERM "minishell: %s: Permission denied\n"
 # define D_ER_NO_FILDIR "minishell: %s: No such file or directory\n"
@@ -27,12 +31,17 @@
 # define SYNTAX_QUOTE_ERROR	3
 # define SYNTAX_PIPE_ERROR	4
 # define SYNTAX_NEWL_ERROR	5
+# define SYNTAX_FROM_ERROR	12
+# define SYNTAX_HERED_ERROR	13
+# define SYNTAX_TO_ERROR	14
+# define SYNTAX_APPND_ERROR	15
 # define LINE_IS_EMPTY		6
 # define PERM_DENIED_ERROR	7
 # define NO_FILEDIR_ERROR	8
 # define WRONG_NB_ARG		9
 # define NO_ENV				10
 # define WRONG_ID_EXPORT	11
+# define WRONG_CMD_ARG		16
 # define DOUBLE_QUOTE 		34
 # define SIMPLE_QUOTE 		39
 # define MASK_SET			0x10
@@ -84,6 +93,7 @@ typedef struct s_token
 typedef enum e_builtin
 {
 	no,
+	no_cmd,
 	cmd_echo,
 	cmd_cd,
 	cmd_pwd,
@@ -184,6 +194,7 @@ int				ft_insert_next_node(int i, t_list *list);
 int				ft_del_quotes(t_data *data);
 int				ft_remove_quotes(t_list *list, char quote);
 int				ft_split_quotes(t_list *list);
+int				ft_remove_quotes_empty(t_token *current_token);
 
 int				ft_detatch_expand(t_list *list, int i);
 int				ft_expand(t_envlist *envp, t_data *data);
