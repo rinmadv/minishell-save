@@ -4,6 +4,7 @@
 int	ft_need_detach(char *str)
 {
 	int		i;
+	int		equals;
 
 	i = 1;
 	if (str[1] == '?' )
@@ -12,6 +13,9 @@ int	ft_need_detach(char *str)
 			return(0);
 		return (2);
 	}
+	equals = ft_strchr_int(str, '=');
+	if (equals > 0)
+		return (equals);
 	else
 	{
 		while (str[i])
@@ -70,6 +74,7 @@ int	ft_detatch_expand(t_list *list, int i)
 		}
 		current_token->join_with_next = true; //important de le garder apres
 		truncate = ft_substr(current_token->string, 0, i);
+		//printf("Truncate = %s\n", truncate);
 		if (!truncate)
 			return (MEMORY_ERR_NB);
 		free(current_token->string);
