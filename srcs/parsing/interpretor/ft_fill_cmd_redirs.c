@@ -29,6 +29,7 @@ int	ft_fill_cmd_redirs_pipe_in(t_cmd *cmd, t_data *data)
 		redirs->filetype = pipe_in_;
 		redirs->open = false;
 		redirs->redirect = false;
+		redirs->fd = -1;
 		new = ft_lstnew((void *)redirs);
 		if (!new)
 			return (free(redirs), redirs = NULL, MEMORY_ERR_NB);

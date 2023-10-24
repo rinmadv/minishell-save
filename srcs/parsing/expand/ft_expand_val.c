@@ -62,12 +62,11 @@ int	ft_expand_val(t_list *list, t_envlist *env, t_data *data)
 	{
 		free(curr_token->string);
 		curr_token->string = NULL;
+		// printf(YELLOW"EXEC VAL = %d\n"NC, data->exec_val);
 		char *nb = ft_itoa(data->exec_val);
 		if (!nb)
 			return (MEMORY_ERR_NB);
-		curr_token->string = ft_strdup(nb);
-		if (!curr_token->string)
-			return(free(nb), nb = NULL, MEMORY_ERR_NB);
+		curr_token->string = nb;
 	}
 	else
 	{

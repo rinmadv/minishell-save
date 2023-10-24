@@ -123,6 +123,7 @@ typedef struct s_files
 	t_filetype		filetype;
 	bool			open;
 	bool			redirect;
+	int				fd;
 }				t_files;
 
 typedef struct s_cmd
